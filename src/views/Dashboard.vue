@@ -4,6 +4,7 @@
         <LineGraphCard/>
         <!--        <BarChartCard/>-->
         <TempCards/>
+        <DocumentCard/>
 
     </v-app>
 </template>
@@ -11,9 +12,10 @@
     import IndividualGradeCards from "../components/Cards/IndividualGradeCards";
     import LineGraphCard from "../components/Cards/Graphs/LineGraphCard";
     import TempCards from "../component/Cards/TempCards";
+    import DocumentCard from "../component/Cards/DocumentCard";
     // import BarChartCard from "../components/BarChartCard";
     export default {
         name: "Dashboard",
-        components: {TempCards, IndividualGradeCards, LineGraphCard}
+        components: {DocumentCard, TempCards, IndividualGradeCards, LineGraphCard}
     }
 </script>
