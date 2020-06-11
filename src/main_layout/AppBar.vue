@@ -18,7 +18,7 @@
         name: "AppBar",
         methods: {
             activeDrawer() {
-                this.$store.commit('IsDrawerActive', true);
+                this.$store.commit('IS_DRAWER_ACTIVE', true);
             }
 
         }

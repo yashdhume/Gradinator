@@ -1,7 +1,7 @@
 <template>
     <div id="parentx">
         <vs-sidebar :click-not-close="isClosed" :hiddenBackground="isClosed" :reduce="true" :reduce-not-hover-expand="false"
-                    class="sidebarx" color="primary" default-index="1" parent=".main-wrapper" spacer
+                    class="sidebarx" color="primary" default-index="1"  spacer
                     v-model="isDrawerActive">
             <div class="header-sidebar text-center" slot="header">
                 <vs-avatar size="70px"
@@ -39,29 +39,15 @@
                     return this.$store.state.isDrawerOpen;
                 },
                 set(val) {
-                    this.$store.commit('IsDrawerActive', val)
+                    this.$store.commit('IS_DRAWER_ACTIVE', val)
                 }
             }
         },
         data: () => ({
             isClosed: false,
-            windowWidth: window.innerWidth
 
         }),
         methods: {
-            handleResize(event) {
-                this.windowWidth = event.currentTarget.innerWidth;
-                this.setDrawer();
-            },
-            setDrawer() {
-                if (this.windowWidth < 1170) {
-                    this.$store.commit('IsDrawerActive', false);
-                    this.isClosed = false
-                } else {
-                    this.$store.commit('IsDrawerActive', true);
-                    this.isClosed = true
-                }
-            }
         }
     }
 </script>
