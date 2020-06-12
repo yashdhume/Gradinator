@@ -1,4 +1,4 @@
-# gradeinator
+# Gradinator
 
 ## Project setup
 ```
