@@ -4,4 +4,9 @@ export default [
         name: "Dashboard",
         icon: "dashboard"
     },
+    {
+        url: '/docs',
+        name: 'Documentation',
+        icon: 'dashboard'
+    },
 ]

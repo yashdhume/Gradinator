@@ -1,16 +1,30 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
-Vue.use(Vuex)
-
+import axios from "axios";
+Vue.use(Vuex, axios)
 export const store = new Vuex.Store({
     state: {
         isDrawerOpen: false,
+        documentationData: {},
+    },
+    actions:{
+        loadDocumentation({commit}){
+            axios
+                //.get('http://localhost:3000/')
+                .get('https://gradinator.herokuapp.com/docs')
+                .then(r=>{
+                    console.log(r)
+                    commit('SAVE_DOCUMENTATION', r)
+                });
+        }
     },
     mutations: {
-        IsDrawerActive(state, value) {
+        IS_DRAWER_ACTIVE(state, value) {
             state.isDrawerOpen = value;
         },
+        SAVE_DOCUMENTATION(state, value){
+            state.documentationData = value;
+        }
     },
     getters: {},
 });

@@ -17,6 +17,12 @@ export default new Router({
                     name: 'Dashboard',
                     index: 1,
                     component: () => import('./views/Dashboard')
+                },
+                {
+                    path: '/docs',
+                    name: 'Documentation',
+                    index: 2,
+                    component: () => import('./views/Documentation')
                 }
             ],
         },
