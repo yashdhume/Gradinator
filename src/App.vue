@@ -5,6 +5,7 @@
 </template>
 
 <script>
+    document.title = 'Gradinator';
     export default {
         name: 'App',
     };
