@@ -10,10 +10,6 @@ export default new Router({
             component: () => import('./main_layout/MainPage.vue'),
             children: [
                 {
-                    path: '/',
-                    redirect: '/dashboard'
-                },
-                {
                     path: '/dashboard',
                     name: 'Dashboard',
                     index: 1,
@@ -24,7 +20,11 @@ export default new Router({
                     name: 'Documentation',
                     index: 2,
                     component: () => import('./views/Documentation')
-                }
+                },
+                {
+                    path: '*',
+                    redirect: '/dashboard'
+                },
             ],
         },
         {
