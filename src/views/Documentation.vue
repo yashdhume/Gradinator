@@ -1,25 +1,16 @@
 <template>
     <vs-row vs-justify="center">
         <vs-col type="flex" vs-justify="center" vs-align="center" vs-lg="12" vs-xs="12">
+            <vs-collapse>
+                    <div v-for="i in documentationData.data.endpointGroups" :key="i">
+                        <vs-collapse-item>
+                            <div slot="header">{{i.name}}</div>
+                            <DocumentCard v-bind:endpoints="i.endpoints"></DocumentCard>
+                        </vs-collapse-item>
+                    </div>
 
-            <!-- TODO: YASH: Make this not hardcoded -->
-
-            <vs-row vs-justify="center" vs-align="center">
-                <h2>Course Endpoints</h2>
-            </vs-row>
-            <DocumentCard v-bind:endpoints="documentationData.data.endpoints['courseEndpoints']"></DocumentCard>
-
-            <vs-row vs-justify="center" vs-align="center">
-                <h2>Assessment Endpoints</h2>
-            </vs-row>
-            <DocumentCard v-bind:endpoints="documentationData.data.endpoints['assessmentEndpoints']"></DocumentCard>
-
-            <vs-row vs-justify="center" vs-align="center">
-                <h2>Users Endpoints</h2>
-            </vs-row>
-            <DocumentCard v-bind:endpoints="documentationData.data.endpoints['userEndpoints']"></DocumentCard>
-
-           </vs-col>
+            </vs-collapse>
+        </vs-col>
     </vs-row>
 
 </template>
@@ -39,6 +30,7 @@
                 'documentationData'
             ])
         },
+        data: () => ({}),
     }
 </script>
 

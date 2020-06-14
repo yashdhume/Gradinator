@@ -1,4 +1,3 @@
-
 <template>
     <div>
         <vs-row vs-justify="center">
@@ -7,6 +6,7 @@
                     <vs-card actionable>
                         <div slot="header">
                             <h3>{{x.path}}</h3>
+                            <p>{{x.description}}</p>
                             <vs-row vs-justify="flex-end">
                                 <vs-chip :color="x.httpMethod==='POST' ? 'primary': 'success'">
                                     {{x.httpMethod}}
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-export default {
+    export default {
         name: "DocumentCard",
         props: {
             endpoints: Array

@@ -10,7 +10,6 @@ export const store = new Vuex.Store({
     actions:{
         loadDocumentation({commit}){
             axios
-                //.get('http://localhost:3000/')
                 .get('https://gradinator.herokuapp.com/docs')
                 .then(r=>{
                     console.log(r)
