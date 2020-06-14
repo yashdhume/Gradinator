@@ -5,8 +5,10 @@ import router from './router';
 import vuesax from 'vuesax'
 import {store} from './store/store'
 import 'material-icons/iconfont/material-icons.css';
-import 'vuesax/dist/vuesax.css'
+import 'vuesax/dist/vuesax.css';
+import VueSplit from 'vue-split-panel';
 
+Vue.use(VueSplit);
 Vue.use(vuesax);
 Vue.config.productionTip = false;
 new Vue({

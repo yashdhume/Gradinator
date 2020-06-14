@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <vs-row vs-justify="center">
@@ -13,8 +14,8 @@
                             </vs-row>
                         </div>
                         <vs-col>
-                            <vs-row  vs-justify="space-around">
-                                <div>
+                            <Split>
+                                <SplitArea :size="50">
                                     <vs-list>
                                         <vs-list-header title="Inputs"></vs-list-header>
                                         <div v-for="i in x.inputs" :key="i">
@@ -24,8 +25,8 @@
                                             ></vs-list-item>
                                         </div>
                                     </vs-list>
-                                </div>
-                                <div>
+                                </SplitArea>
+                                <SplitArea :size="50">
                                     <vs-list>
                                         <vs-list-header title="Outputs"></vs-list-header>
                                         <div v-for="i in x.outputs" :key="i">
@@ -35,8 +36,8 @@
                                             ></vs-list-item>
                                         </div>
                                     </vs-list>
-                                </div>
-                            </vs-row>
+                                </SplitArea>
+                            </Split>
                         </vs-col>
                         <div slot="footer">
                             <vs-row vs-justify="flex-end">
@@ -52,7 +53,7 @@
 </template>
 
 <script>
-    export default {
+export default {
         name: "DocumentCard",
         props: {
             endpoints: Array
