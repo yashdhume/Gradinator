@@ -1,7 +1,7 @@
 <template>
     <vs-card actionable>
         <div slot="header">
-            <h4 class="mb-1">{{headerText}}</h4>
+            <h5 class="mb-1">{{headerText}}</h5>
         </div>
         <span>{{bodyText}}</span>
         <vs-progress

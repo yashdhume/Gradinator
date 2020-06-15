@@ -3,10 +3,10 @@
         <vs-col type="flex" vs-align="center" vs-justify="center" vs-w="6">
             <vs-card class="cardx">
                 <div slot="header">
-                    <h4>Grades</h4>
+                    <h5>Grades</h5>
                 </div>
                 <div>
-                    <BarChart/>
+                    <BarChartData/>
                 </div>
             </vs-card>
         </vs-col>
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-    import BarChart from "../../../component/Graphs/BarChart";
 
+    import BarChartData from "../../../ui_data/BarChartData";
     export default {
         name: "BarChartCard",
-        components: {BarChart}
+        components: {BarChartData}
     }
 </script>

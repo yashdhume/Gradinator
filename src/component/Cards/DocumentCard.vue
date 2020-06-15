@@ -4,7 +4,7 @@
         <div slot="header">
             <vs-row vs-justify="space-between">
                 <div>
-                    <h3>{{endpoint.path}}</h3>
+                    <h5>{{endpoint.path}}</h5>
                     <p>{{endpoint.description}}</p>
                 </div>
                 <div>

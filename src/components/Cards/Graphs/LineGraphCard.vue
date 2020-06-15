@@ -3,10 +3,10 @@
         <vs-col type="flex" vs-align="center" vs-justify="center" vs-w="6">
             <vs-card actionable class="cardx">
                 <div slot="header">
-                    <h4>Grade Summary</h4>
+                    <h5>Grade Summary</h5>
                 </div>
                 <div>
-                    <LineGraph/>
+                    <LineGraphData/>
                 </div>
             </vs-card>
         </vs-col>
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-    import LineGraph from "../../../component/Graphs/LineGraph";
+    import LineGraphData from "../../../ui_data/LineGraphData";
 
     export default {
         name: "LineGraphCard",
-        components: {LineGraph}
+        components: {LineGraphData}
     }
 </script>
