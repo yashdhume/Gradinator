@@ -2,12 +2,16 @@
 <div>
     <vs-card actionable>
         <div slot="header">
-            <h3>{{endpoint.path}}</h3>
-            <p>{{endpoint.description}}</p>
-            <vs-row vs-justify="flex-end">
-                <vs-chip :color="endpoint.httpMethod==='POST' ? 'primary': 'success'">
-                    {{endpoint.httpMethod}}
-                </vs-chip>
+            <vs-row vs-justify="space-between">
+                <div>
+                    <h3>{{endpoint.path}}</h3>
+                    <p>{{endpoint.description}}</p>
+                </div>
+                <div>
+                    <vs-chip :color="endpoint.httpMethod==='POST' ? 'primary': 'success'">
+                        {{endpoint.httpMethod}}
+                    </vs-chip>
+                </div>
             </vs-row>
         </div>
         <vs-col>
