@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router);
 export default new Router({
-    mode: 'history',
+    mode: 'hash',
     routes: [
         {
             path: '',
@@ -20,10 +20,6 @@ export default new Router({
                     name: 'Documentation',
                     index: 2,
                     component: () => import('./views/Documentation')
-                },
-                {
-                    path: '*',
-                    redirect: '/dashboard'
                 },
             ],
         },

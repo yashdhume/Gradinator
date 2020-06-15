@@ -17,7 +17,7 @@
 
 <script>
     import {mapState} from "vuex";
-    import DocumentCard from "../component/Cards/DocumentCard";
+    import DocumentCard from "../components/Cards/DocumentCards";
 
     export default {
         name: "Documentation",
