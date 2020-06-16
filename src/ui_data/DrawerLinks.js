@@ -5,8 +5,14 @@ export default [
         icon: "dashboard"
     },
     {
+      url: '/courses',
+      name: 'Courses',
+      icon: "class"
+    },
+    {
         url: '/docs',
         name: 'Documentation',
-        icon: 'dashboard'
+        icon: 'description'
     },
+
 ]
