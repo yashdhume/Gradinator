@@ -1,8 +1,8 @@
 <template>
     <vs-row vs-align="center"
             vs-justify="space-around" vs-type="flex">
-        <div :key="i" v-for="i in 50">
-            <CourseCard/>
+        <div v-for="i in courseData.data.courses" :key="i">
+            <CourseCard v-bind:course="i"/>
         </div>
 
     </vs-row>
@@ -10,9 +10,19 @@
 
 <script>
     import CourseCard from "../component/Cards/CourseCard";
+    import {mapState} from "vuex";
+
     export default {
+        mounted() {
+            this.$store.dispatch('loadCourses')
+        },
+        computed:{
+            ...mapState([
+                'courseData'
+            ])
+        },
         name: "Courses",
-        components: {CourseCard}
+        components: {CourseCard},
     }
 </script>
 

@@ -1,18 +1,18 @@
 <template>
-    <vs-card actionable class="cardx">
+    <vs-card actionable class="cardx" :style="{width: '400px'}">
         <vs-col vs-type="flex" vs-justify="center" vs-align="center" style="flex-direction: column">
             <vs-row vs-justify="space-between" vs-align="center" style="padding-top: 10px">
-                <vs-chip color="primary">Computer Science</vs-chip>
-                <vs-chip color="success">Winter 2020</vs-chip>
+                <vs-chip :color="course.major.color">{{course.major.name}}</vs-chip>
+                <vs-chip color="success">{{course.semester}} {{course.year}}</vs-chip>
                 <h6>🔥 72</h6>
             </vs-row>
             <div style="padding: 10px"/>
-            <h4>Computer Graphics</h4>
-            <p>Mark Green</p>
+            <h4>{{course.name}}</h4>
+            <p>{{course.professor}}</p>
             <vs-divider/>
             <vs-row vs-justify="space-between" vs-align="center">
-                <DataWithTitleOnBottom topData="736832" title="CRN"/>
-                <DataWithTitleOnBottom topData="CSCI 3090U" title="Course Code"/>
+                <DataWithTitleOnBottom :topData="course.crn" title="CRN"/>
+                <DataWithTitleOnBottom :topData="course.code" title="Course Code"/>
                 <GroupedAvatars :images="images"></GroupedAvatars>
             </vs-row>
         </vs-col>
@@ -29,6 +29,9 @@
     export default {
         name: "CourseCard",
         components: {GroupedAvatars, DataWithTitleOnBottom},
+        props: {
+            course: Object
+        },
         data: () => ({
             images: ['https://cdn.dribbble.com/users/1709884/screenshots/5070649/scribl_avatar-11.png',
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKbRH4Jh9B0D6CXyNByqqfuoKXwcbYsSkHoFwp6fsHabi1cygm&usqp=CAU',

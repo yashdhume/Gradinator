@@ -6,14 +6,23 @@ export const store = new Vuex.Store({
     state: {
         isDrawerOpen: false,
         documentationData: {},
+        courseData: {},
     },
     actions:{
         loadDocumentation({commit}){
             axios
                 .get('https://gradinator.herokuapp.com/docs')
                 .then(r=>{
-                    console.log(r)
+                    console.log(r);
                     commit('SAVE_DOCUMENTATION', r)
+                });
+        },
+        loadCourses({commit}){
+            axios
+                .get('https://gradinator.herokuapp.com/courses')
+                .then(r=>{
+                    console.log(r);
+                    commit('SAVE_COURSES', r)
                 });
         }
     },
@@ -23,6 +32,9 @@ export const store = new Vuex.Store({
         },
         SAVE_DOCUMENTATION(state, value){
             state.documentationData = value;
+        },
+        SAVE_COURSES(state, value){
+            state.courseData = value;
         }
     },
     getters: {},
