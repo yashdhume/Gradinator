@@ -8,7 +8,7 @@
                     <p>{{endpoint.description}}</p>
                 </div>
                 <div>
-                    <vs-chip v-if="endpoint.requiresAuth" color="#FF0000">
+                    <vs-chip v-if="endpoint.requiresAuth" color="warning">
                         Requires Auth
                     </vs-chip>
                     <vs-chip :color="endpoint.httpMethod==='POST' ? 'primary': 'success'">
@@ -23,7 +23,7 @@
                     <vs-list>
                         <vs-list-header v-if="endpoint.inputs.length===0 && endpoint.optionalInputs.length===0"
                                         title="No Inputs"
-                                        color="success"/>
+                                        color="danger"/>
                         <vs-list-header v-if="endpoint.inputs.length>0" title="Inputs"/>
                         <div v-for="i in endpoint.inputs" :key="i">
                             <vs-list-item

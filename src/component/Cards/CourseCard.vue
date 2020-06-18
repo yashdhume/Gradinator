@@ -4,7 +4,7 @@
             <vs-row vs-justify="space-between" vs-align="center" style="padding-top: 10px">
                 <vs-chip :color="course.major.color">{{course.major.name}}</vs-chip>
                 <vs-chip color="success">{{course.semester}} {{course.year}}</vs-chip>
-                <h6>🔥 72</h6>
+                <h6>🔥 {{Math.floor(Math.random() * 101)}}</h6>
             </vs-row>
             <div style="padding: 10px"/>
             <h4>{{course.name}}</h4>
