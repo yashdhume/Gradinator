@@ -8,6 +8,9 @@
                     <p>{{endpoint.description}}</p>
                 </div>
                 <div>
+                    <vs-chip v-if="endpoint.requiresAuth" color="#FF0000">
+                        Requires Auth
+                    </vs-chip>
                     <vs-chip :color="endpoint.httpMethod==='POST' ? 'primary': 'success'">
                         {{endpoint.httpMethod}}
                     </vs-chip>
