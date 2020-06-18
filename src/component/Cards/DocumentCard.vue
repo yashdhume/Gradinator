@@ -18,8 +18,18 @@
             <Split>
                 <SplitArea :size="50">
                     <vs-list>
-                        <vs-list-header title="Inputs"></vs-list-header>
+                        <vs-list-header v-if="endpoint.inputs.length===0 && endpoint.optionalInputs.length===0"
+                                        title="No Inputs"
+                                        color="success"/>
+                        <vs-list-header v-if="endpoint.inputs.length>0" title="Inputs"/>
                         <div v-for="i in endpoint.inputs" :key="i">
+                            <vs-list-item
+                                    :title="i.name"
+                                    :subtitle="i.description"
+                            ></vs-list-item>
+                        </div>
+                        <vs-list-header v-if="endpoint.optionalInputs.length>0" title="Optional Inputs" color="#B400E3"/>
+                        <div v-for="i in endpoint.optionalInputs" :key="i">
                             <vs-list-item
                                     :title="i.name"
                                     :subtitle="i.description"
