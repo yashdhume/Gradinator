@@ -2,7 +2,15 @@
     <vs-row vs-align="center"
             vs-justify="space-around" vs-type="flex">
         <v-card width="750" >
-            <form-wizard :start-index.sync="activeIndex" color="#70C95A" title="Register" subtitle="">
+            <form-wizard
+                    :start-index.sync="activeIndex"
+                    color="#70C95A"
+                    error-color="#ff4949"
+                    title="Register"
+                    subtitle=""
+                    @on-complete="onComplete"
+                    validate-on-back
+            >
                 <wizard-step
                         slot-scope="props"
                         slot="step"
@@ -25,14 +33,13 @@
                                 :width="65"/>
                     </div>
                 </wizard-step>
-                <tab-content title="Personal details" icon="">
+                <tab-content title="Personal details" icon="" >
                     <PersonalDetailsRegistration/>
                 </tab-content>
                 <tab-content title="Pick Your University" icon="">
                     <SchoolCards/>
                 </tab-content>
                 <tab-content title="Done" icon="">
-                    <h1>Select your University</h1>
                 </tab-content>
             </form-wizard>
         </v-card>
@@ -63,6 +70,14 @@
                 doneOptions: {animationData: Done, loop: false},
                 animationSpeed: 1
             };
+        },
+        methods: {
+            onComplete(){
+                this.$router.push('/dashboard');
+            },
+            validate(ref) {
+                return this.$refs[ref].validate();
+            },
         }
     };
 </script>
