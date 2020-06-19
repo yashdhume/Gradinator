@@ -9,7 +9,7 @@
 
 <script>
     import Lottie from "vue-lottie";
-    import error from "./../animations/404";
+    import error from "../animations/404Animation";
 
     export default {
         name: "404",
