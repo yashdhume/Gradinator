@@ -10,8 +10,14 @@ import {store} from './store/store'
 import 'material-icons/iconfont/material-icons.css';
 import 'vuesax/dist/vuesax.css';
 import VueSplit from 'vue-split-panel';
+import FormWizard from "vue-form-wizard";
+import "vue-form-wizard/dist/vue-form-wizard.min.css";
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(FormWizard)
 Vue.use(VueSplit);
 Vue.use(vuesax);
+Vue.use(ElementUI);
 Vue.config.productionTip = false;
 new Vue({
     router,

@@ -30,8 +30,23 @@ export default new Router({
             ],
         },
         {
+            path:'/404',
+            name: '404',
+            component: ()=> import('./views/404')
+        },
+        {
             path: '*',
-            redirect: '/dashboard'
+            redirect: '/404'
+        },
+        {
+            path:'/login',
+            name: 'Login',
+            component: ()=> import('./views/Login')
+        },
+        {
+            path: '/registration',
+            name: 'Registration',
+            component: ()=> import('./views/Registration')
         }
     ],
 })
