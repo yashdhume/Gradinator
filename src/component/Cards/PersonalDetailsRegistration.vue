@@ -1,12 +1,6 @@
 <template>
     <el-form label-position="top" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" >
-        <el-form-item label="First Name" prop="age">
-            <el-input v-model="ruleForm.firstName" placeholder="First name"></el-input>
-        </el-form-item>
-        <el-form-item label="Last Name" prop="age">
-            <el-input v-model="ruleForm.lastName" placeholder="Last name"></el-input>
-        </el-form-item>
-        <el-form-item label="Username" prop="username">
+        <el-form-item label="Username" prop="userName">
             <el-input v-model="ruleForm.userName" placeholder="Username"></el-input>
         </el-form-item>
         <el-form-item label="Email" prop="email">
@@ -25,6 +19,17 @@
     export default {
         name: "PersonalDetailsRegistration",
         data() {
+            var validateUsername = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('Please input username'));
+                }
+                else if(!new RegExp("^[^\\W_]{3,48}$").test(value)){
+                    callback(new Error('No symbols or spaces allowed'));
+                }
+                else{
+                    callback();
+                }
+            };
             var validateEmail = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input email'));
@@ -63,14 +68,15 @@
             };
             return {
                 ruleForm: {
-                    pass: '',
-                    checkPass: '',
                     userName: '',
                     email: '',
-                    firstName: '',
-                    lastName: '',
+                    pass: '',
+                    checkPass: '',
                 },
                 rules: {
+                    userName:[
+                        { validator: validateUsername, trigger: 'blur' },
+                    ],
                     email:[
                         { validator: validateEmail, trigger: 'blur' },
                     ],
