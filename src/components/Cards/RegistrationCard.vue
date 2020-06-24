@@ -33,8 +33,8 @@
                                 :width="65"/>
                     </div>
                 </wizard-step>
-                <tab-content title="Personal details" icon="" >
-                    <PersonalDetailsRegistration/>
+                <tab-content title="Personal details" icon="" :before-change="() => validate('personalDetails')">
+                    <PersonalDetailsRegistration ref="personalDetails" @on-validate="onStepValidate"/>
                 </tab-content>
                 <tab-content title="Pick Your University" icon="">
                     <SchoolCards/>
@@ -78,6 +78,11 @@
             validate(ref) {
                 return this.$refs[ref].validate();
             },
+            onStepValidate(validated, model) {
+                if (validated) {
+                    this.finalModel = { ...this.finalModel, ...model};
+                }
+            }
         }
     };
 </script>

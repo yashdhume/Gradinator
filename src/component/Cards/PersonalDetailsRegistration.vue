@@ -1,19 +1,22 @@
 <template>
     <el-form label-position="top" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" >
         <el-form-item label="First Name" prop="age">
-            <el-input v-model.number="ruleForm.firstName"></el-input>
+            <el-input v-model="ruleForm.firstName" placeholder="First name"></el-input>
         </el-form-item>
         <el-form-item label="Last Name" prop="age">
-            <el-input v-model.number="ruleForm.lastName"></el-input>
+            <el-input v-model="ruleForm.lastName" placeholder="Last name"></el-input>
         </el-form-item>
-        <el-form-item label="Email" prop="age">
-            <el-input v-model.number="ruleForm.email"></el-input>
+        <el-form-item label="Username" prop="username">
+            <el-input v-model="ruleForm.userName" placeholder="Username"></el-input>
+        </el-form-item>
+        <el-form-item label="Email" prop="email">
+            <el-input v-model="ruleForm.email" placeholder="Email"></el-input>
         </el-form-item>
         <el-form-item label="Password" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+            <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="Password"></el-input>
         </el-form-item>
-        <el-form-item label="Confirm" prop="checkPass">
-            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+        <el-form-item label="Confirm Password" prop="checkPass">
+            <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="Confirm Password"></el-input>
         </el-form-item>
     </el-form>
 </template>
@@ -23,12 +26,12 @@
         name: "PersonalDetailsRegistration",
         data() {
             var validateEmail = (rule, value, callback) => {
-                if (/.+@.+\..+/.test(value)) {
-                    callback(new Error('Please input valid password'));
-                } else {
-                    if (this.ruleForm.checkPass === '') {
-                        this.$refs.ruleForm.validateField('email');
-                    }
+                if (value === '') {
+                    callback(new Error('Please input email'));
+                } else if(!/.+@.+\..+/.test(value)){
+                    callback(new Error('Not a valid email'));
+                }
+                else{
                     callback();
                 }
             };
@@ -55,22 +58,12 @@
                 ruleForm: {
                     pass: '',
                     checkPass: '',
+                    userName: '',
                     email: '',
                     firstName: '',
                     lastName: '',
                 },
                 rules: {
-                    firstName: [{
-                        required: true,
-                        message: 'First name is required',
-                        trigger: 'blur',
-
-                    }],
-                    lastName: [{
-                        required: true,
-                        message: 'Last name is required',
-                        trigger: 'blur'
-                    }],
                     email:[
                         { validator: validateEmail, trigger: 'blur' },
                     ],
@@ -84,18 +77,14 @@
             };
         },
         methods: {
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
+            validate() {
+                return new Promise((resolve) => {
+                    this.$refs.ruleForm.validate((valid) => {
+                        this.$emit('on-validate', valid, this.ruleForm)
+                        resolve(valid);
+                    });
+                })
+
             }
         }
     }
