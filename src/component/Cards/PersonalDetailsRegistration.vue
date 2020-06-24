@@ -28,7 +28,8 @@
             var validateEmail = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input email'));
-                } else if(!/.+@.+\..+/.test(value)){
+                }
+                else if(!/.+@.+\..+/.test(value)){
                     callback(new Error('Not a valid email'));
                 }
                 else{
@@ -38,7 +39,11 @@
             var validatePass = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input the password'));
-                } else {
+                }
+                else if(!new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})").test(value)){
+                    callback(new Error('Password need to have 8 characters, At least 1 lowercase, uppercase, number & symbol'));
+                }
+                else {
                     if (this.ruleForm.checkPass !== '') {
                         this.$refs.ruleForm.validateField('checkPass');
                     }
@@ -48,9 +53,11 @@
             var validatePass2 = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please input the password again'));
-                } else if (value !== this.ruleForm.pass) {
+                }
+                else if (value !== this.ruleForm.pass) {
                     callback(new Error('Two inputs don\'t match!'));
-                } else {
+                }
+                else {
                     callback();
                 }
             };
