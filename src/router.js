@@ -39,11 +39,6 @@ export default new Router({
             redirect: '/404'
         },
         {
-            path:'/login',
-            name: 'Login',
-            component: ()=> import('./views/Login')
-        },
-        {
             path: '/registration',
             name: 'Registration',
             component: ()=> import('./views/Registration')

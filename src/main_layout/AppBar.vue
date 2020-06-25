@@ -8,6 +8,7 @@
                     :height="200"
                     :width="200"/>
             <v-spacer></v-spacer>
+            <v-btn @click.stop:="popup=true;"><Login :popup="popup"/>Login</v-btn>
         </v-app-bar>
 
     </header>
@@ -18,9 +19,10 @@
 <script>
     import Lottie from "vue-lottie";
     import FullLogo from "../animations/FullLogo";
+    import Login from "../views/Login";
     export default {
         name: "AppBar",
-        components: {Lottie},
+        components: {Lottie, Login},
         methods: {
             activeDrawer() {
                 this.$store.commit('IS_DRAWER_ACTIVE', true);
@@ -29,7 +31,7 @@
         },
         data: () => ({
             logoOptions: {animationData: FullLogo, loop: false},
-
+            popup:false
         }),
     }
 </script>
