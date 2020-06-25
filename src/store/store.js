@@ -10,23 +10,18 @@ export const store = new Vuex.Store({
         documentationData: {},
         courseData: {},
         loginData: {},
+        universityData: {},
     },
     actions:{
         loadDocumentation({commit}){
             axios
                 .get(site+ 'docs')
-                .then(r=>{
-                    console.log(r);
-                    commit('SAVE_DOCUMENTATION', r)
-                });
+                .then(r=>commit('SAVE_DOCUMENTATION', r));
         },
         loadCourses({commit}){
             axios
                 .get(site+'courses')
-                .then(r=>{
-                    console.log(r);
-                    commit('SAVE_COURSES', r)
-                });
+                .then(r=> commit('SAVE_COURSES', r));
         },
         Register(state, value){
             return new Promise((resolve) => {
@@ -34,6 +29,11 @@ export const store = new Vuex.Store({
                     .post(site + `users/createUser?username=${value.userName}&email=${value.email}&password=${value.pass}'`)
                     .then(r => resolve(r.data));
             })
+        },
+        loadUniversity({commit}){
+            axios
+                .get(site+'universities')
+                .then(r=>commit('SAVE_UNIVERSITY', r));
         }
     },
     mutations: {
@@ -46,6 +46,9 @@ export const store = new Vuex.Store({
         SAVE_COURSES(state, value){
             state.courseData = value;
         },
+        SAVE_UNIVERSITY(state, value){
+            state.universityData = value;
+        }
 
     },
     getters: {
