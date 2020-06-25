@@ -8,6 +8,7 @@
                     error-color="#ff4949"
                     title="Register"
                     subtitle=""
+                    finish-button-text="Submit"
                     @on-complete="onComplete"
                     validate-on-back
             >
@@ -19,7 +20,7 @@
                         :index="props.index">
                     <div slot="active-step"
                          style="display: flex; justify-content:center; align-items: center;">
-                        <lottie v-if="props.index === 2"
+                        <lottie v-if="props.index === 0"
                                 :options="personalDetailsOptions"
                                 :height="65"
                                 :width="65"/>
@@ -27,8 +28,8 @@
                                 :options="campusOptions"
                                 :height="60"
                                 :width="60"/>
-                        <lottie v-else-if="props.index === 0"
-                                :options="doneOptions"
+                        <lottie v-else-if="props.index === 2"
+                                :options="sendOptions"
                                 :height="65"
                                 :width="65"/>
                     </div>
@@ -39,7 +40,7 @@
                 <tab-content title="Pick Your University" icon="">
                     <SchoolCards/>
                 </tab-content>
-                <tab-content title="Done" icon="">
+                <tab-content title="Submit" icon="">
                 </tab-content>
             </form-wizard>
         </v-card>
@@ -50,7 +51,7 @@
 <script>
     import Lottie from "vue-lottie";
     import PersonalDetails from "../../animations/PersonalDetailsAnimation";
-    import Done from "../../animations/DoneAnimation";
+    import SendAnimation from "../../animations/SendAnimation";
     import Campus from "../../animations/CampusAnimation"
     import PersonalDetailsRegistration from "../../component/Cards/PersonalDetailsRegistration";
     import SchoolCards from "../../components/Cards/SchoolCards";
@@ -67,13 +68,23 @@
                 activeIndex: 0,
                 personalDetailsOptions: {animationData: PersonalDetails, loop: false},
                 campusOptions: {animationData: Campus, loop: false},
-                doneOptions: {animationData: Done, loop: false},
+                sendOptions: {animationData: SendAnimation, loop: false},
                 animationSpeed: 1
             };
         },
         methods: {
             onComplete(){
-                this.$router.push('/dashboard');
+                this.$store.dispatch('Register', this.finalModel).then((response)=>{
+                    console.log(response)
+                    if (response.error){
+                        this.$vs.notify({title:'Error',text:response.error,color:'danger',position:'top-right'})
+                        setTimeout(function(){ location.reload() }, 1000);
+                    }
+                    else{
+                        this.$vs.notify({title:'Success',text:"Account Created",color:'success', position:'top-right'})
+                        this.$router.push('/dashboard')
+                    }
+                })
             },
             validate(ref) {
                 return this.$refs[ref].validate();
