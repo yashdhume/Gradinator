@@ -33,9 +33,14 @@ export const store = new Vuex.Store({
             })
         },
         Login(state, value){
-            axios
-                .post(site + `user/signIn?username=${value.username}&password=${value.password}'`)
-                .then(r =>{ console.log(r); state.commit('SET_TOKEN', r)});
+            return new Promise((resolve) => {
+                axios
+                    .post(site + `user/signIn?username=${value.username}&password=${value.password}'`)
+                    .then(r => {
+                        state.commit('SET_TOKEN', JSON.parse(JSON.stringify(r.data)).token)
+                        resolve(r.data);
+                    });
+            });
 
         },
         loadUniversity({commit}){
