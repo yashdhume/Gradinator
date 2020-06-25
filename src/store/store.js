@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios";
-Vue.use(Vuex, axios)
+import Vuesax from 'vuesax'
+Vue.use(Vuex, axios, Vuesax)
+const site="https://gradinator.herokuapp.com/";
 export const store = new Vuex.Store({
     state: {
         isDrawerOpen: false,
         documentationData: {},
         courseData: {},
+        loginData: {},
     },
     actions:{
         loadDocumentation({commit}){
             axios
-                .get('https://gradinator.herokuapp.com/docs')
+                .get(site+ 'docs')
                 .then(r=>{
                     console.log(r);
                     commit('SAVE_DOCUMENTATION', r)
@@ -19,11 +22,18 @@ export const store = new Vuex.Store({
         },
         loadCourses({commit}){
             axios
-                .get('https://gradinator.herokuapp.com/courses')
+                .get(site+'courses')
                 .then(r=>{
                     console.log(r);
                     commit('SAVE_COURSES', r)
                 });
+        },
+        Register(state, value){
+            return new Promise((resolve) => {
+                axios
+                    .post(site + `users/createUser?username=${value.userName}&email=${value.email}&password=${value.pass}'`)
+                    .then(r => resolve(r.data));
+            })
         }
     },
     mutations: {
@@ -35,7 +45,9 @@ export const store = new Vuex.Store({
         },
         SAVE_COURSES(state, value){
             state.courseData = value;
-        }
+        },
+
     },
-    getters: {},
+    getters: {
+    },
 });
