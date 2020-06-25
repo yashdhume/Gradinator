@@ -8,9 +8,8 @@
                     :height="200"
                     :width="200"/>
             <v-spacer></v-spacer>
-            <v-btn @click.stop:="popup=true;"><Login :popup="popup"/>Login</v-btn>
+            <v-btn @click.stop="activeLogin"><Login/>Login</v-btn>
         </v-app-bar>
-
     </header>
 
 
@@ -26,6 +25,9 @@
         methods: {
             activeDrawer() {
                 this.$store.commit('IS_DRAWER_ACTIVE', true);
+            },
+            activeLogin(){
+                this.$store.commit('IS_LOGIN_ACTIVE', true)
             }
 
         },

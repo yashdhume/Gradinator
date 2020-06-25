@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
         loginData: {},
         universityData: {},
         token: "",
+        isLoginPopupOpen: false,
     },
     actions:{
         loadDocumentation({commit}){
@@ -46,6 +47,9 @@ export const store = new Vuex.Store({
     mutations: {
         IS_DRAWER_ACTIVE(state, value) {
             state.isDrawerOpen = value;
+        },
+        IS_LOGIN_ACTIVE(state, value){
+            state.isLoginPopupOpen = value;
         },
         SAVE_DOCUMENTATION(state, value){
             state.documentationData = value;

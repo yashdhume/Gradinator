@@ -1,11 +1,13 @@
 <template>
     <div>
-        <vs-popup title="Login" :active.sync="popup">
+        <vs-popup title="Login" :active.sync="isLoginActive">
             <vs-col vs-align="center"
                     vs-justify="center" vs-type="flex" style="flex-direction: column">
-                <vs-input style="padding-top: 20px; padding-bottom: 20px" placeholder="username" v-model="username"/>
-                <vs-input type="password" style="padding-bottom: 20px" placeholder="password" v-model="password"/>
-                <vs-button @click="sendLogin">Login</vs-button>
+                <vs-input icon="account_circle" style="padding-top: 20px; padding-bottom: 20px" placeholder="username" v-model="username"/>
+                <vs-input icon="vpn_key" type="password" style="padding-bottom: 20px" placeholder="password" v-model="password"/>
+                <div>
+                    <vs-button @click="sendLogin">Login</vs-button>
+                </div>
             </vs-col>
         </vs-popup>
     </div>
@@ -14,8 +16,15 @@
 <script>
     export default {
         name: "Login",
-        props:{
-          popup: Boolean
+        computed: {
+            isLoginActive: {
+                get() {
+                    return this.$store.state.isLoginPopupOpen;
+                },
+                set(val) {
+                    this.$store.commit('IS_LOGIN_ACTIVE', val)
+                }
+            }
         },
         data(){
             return {
