@@ -11,7 +11,7 @@ export const store = new Vuex.Store({
         courseData: {},
         loginData: {},
         universityData: {},
-        token: "",
+        token: {},//tokenId, tokenSecret
         isLoginPopupOpen: false,
     },
     actions:{
@@ -37,7 +37,7 @@ export const store = new Vuex.Store({
                 axios
                     .post(site + `user/signIn?username=${value.username}&password=${value.password}'`)
                     .then(r => {
-                        state.commit('SET_TOKEN', JSON.parse(JSON.stringify(r.data)).token)
+                        state.commit('SET_TOKEN', r.data.token)
                         resolve(r.data);
                     });
             });
