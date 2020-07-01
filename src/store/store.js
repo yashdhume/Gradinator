@@ -28,14 +28,14 @@ export const store = new Vuex.Store({
         Register(state, value){
             return new Promise((resolve) => {
                 axios
-                    .post(site + `users/createUser?username=${value.userName}&email=${value.email}&password=${value.pass}'`)
+                    .post(site + `users/createUser?username=${value.userName}&email=${value.email}&password=${value.pass}`)
                     .then(r => resolve(r.data));
             })
         },
         Login(state, value){
             return new Promise((resolve) => {
                 axios
-                    .post(site + `user/signIn?username=${value.username}&password=${value.password}'`)
+                    .post(site + `user/signIn?username=${value.username}&password=${value.password}`)
                     .then(r => {
                         state.commit('SET_TOKEN', r.data.token)
                         resolve(r.data);
@@ -71,5 +71,8 @@ export const store = new Vuex.Store({
 
     },
     getters: {
+        getToken(state){
+            return state.token
+        }
     },
 });
