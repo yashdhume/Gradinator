@@ -1,10 +1,12 @@
 <template>
-    <vs-row vs-align="center"
-            vs-justify="space-around" vs-type="flex">
-        <div v-for="i in universityData.data.universities" :key="i">
-            <SchoolCard :school-data="i"/>
-        </div>
-    </vs-row>
+    <v-row cols="6">
+        <v-col  align="center" class="space-around">
+            <div v-for="i in universityData.data.universities" :key="i">
+                <SchoolCard :school-data="i"/>
+                <v-spacer/>
+            </div>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
