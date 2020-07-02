@@ -18,7 +18,7 @@
                 <GroupedAvatars :images="images"></GroupedAvatars>
             </v-row>
             <div>
-                <div @click="play">
+                <div @click="play(course.id)" v-if="$store.state.token.tokenId">
                 <lottie
                         v-on:animCreated="handleAnimation"
                         style="max-height: 50px"
@@ -71,17 +71,22 @@
                 this.anim.stop();
             },
 
-            play() {
-                console.log("as")
+            play(val) {
+                this.$store.dispatch('enrollCourse', val).then((response)=>{
+                    if (response.error){
+                        this.$vs.notify({title:'Error',text:response.error,color:'danger',position:'top-right'})
+                    }
+                    else{
+                        console.log(response.data);
+                        this.$vs.notify({title:'Success',text:"Class is enrolled",color:'success', position:'top-right'})
+                    }
+                })
                 this.anim.play();
             },
 
             pause() {
                 this.anim.pause();
             },
-            test(){
-                alert("AAAAA")
-            }
         }
     }
 </script>
