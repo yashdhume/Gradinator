@@ -24,7 +24,7 @@
 
 <script>
     import Lottie from "vue-lottie";
-    import MiniLogo from "../animations/MiniLogo";
+    import MiniLogo from "../assets/animations/MiniLogo";
     export default {
         name: "Drawer",
         components: {Lottie},

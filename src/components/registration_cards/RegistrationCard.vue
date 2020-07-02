@@ -50,11 +50,11 @@
 
 <script>
     import Lottie from "vue-lottie";
-    import PersonalDetails from "../../animations/PersonalDetailsAnimation";
-    import SendAnimation from "../../animations/SendAnimation";
-    import Campus from "../../animations/CampusAnimation"
-    import PersonalDetailsRegistration from "../../component/Cards/PersonalDetailsRegistration";
-    import SchoolCards from "../../components/Cards/SchoolCards";
+    import PersonalDetails from "../../assets/animations/PersonalDetailsAnimation";
+    import SendAnimation from "../../assets/animations/SendAnimation";
+    import Campus from "../../assets/animations/CampusAnimation"
+    import PersonalDetailsRegistration from "./PersonalDetailsRegistration";
+    import SchoolCards from "./GroupedSchoolCards";
 
     export default {
         name: "RegistrationCard",

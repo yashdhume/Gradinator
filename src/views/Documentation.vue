@@ -5,7 +5,7 @@
                     <div v-for="i in documentationData.data.endpointGroups" :key="i">
                         <vs-collapse-item>
                             <div slot="header">{{i.name}}</div>
-                            <DocumentCard v-bind:endpoints="i.endpoints"></DocumentCard>
+                            <GroupedEndpoints v-bind:endpoints="i.endpoints"></GroupedEndpoints>
                         </vs-collapse-item>
                     </div>
 
@@ -17,11 +17,11 @@
 
 <script>
     import {mapState} from "vuex";
-    import DocumentCard from "../components/Cards/DocumentCards";
+    import GroupedEndpoints from "../components/endpoint_components/GroupedEndpoints";
 
     export default {
         name: "Documentation",
-        components: {DocumentCard},
+        components: {GroupedEndpoints},
         mounted() {
             this.$store.dispatch('loadDocumentation')
         },

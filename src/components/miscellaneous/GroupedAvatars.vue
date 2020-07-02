@@ -1,12 +1,7 @@
 <template>
     <div>
         <b-avatar-group overlap="0.55">
-
-            <b-avatar :src="images[0]"/>
-            <b-avatar :src="images[1]"/>
-            <b-avatar :src="images[2]"/>
-            <b-avatar :src="images[3]"/>
-            <b-avatar :src="images[4]"/>
+            <b-avatar v-for="i in images" :key="i" :src="i"/>
             <b-avatar>+31</b-avatar>
         </b-avatar-group>
     </div>
@@ -24,3 +19,4 @@
 <style scoped>
 
 </style>
+ah

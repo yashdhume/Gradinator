@@ -1,16 +1,16 @@
 <template>
     <v-app>
-        <IndividualGradeCards/>
-        <LineGraphCard/>
-        <TempCards/>
+        <GroupedSummaryGradeProgressCard/>
+        <GradeSummaryLineGraphCard/>
+        <GradeSummaryBarGraphCard/>
     </v-app>
 </template>
 <script>
-    import IndividualGradeCards from "../components/Cards/IndividualGradeCards";
-    import LineGraphCard from "../components/Cards/Graphs/LineGraphCard";
-    import TempCards from "../component/Cards/TempCards";
+    import GroupedSummaryGradeProgressCard from "../components/dashboard_components/cards/GroupedSummaryGradeProgressCard";
+    import GradeSummaryLineGraphCard from "../components/dashboard_components/graphs/GradeSummaryLineGraphCard";
+    import GradeSummaryBarGraphCard from "../components/dashboard_components/graphs/GradeSummaryBarGraphCard";
     export default {
         name: "Dashboard",
-        components: {TempCards, IndividualGradeCards, LineGraphCard}
+        components: {GroupedSummaryGradeProgressCard, GradeSummaryLineGraphCard, GradeSummaryBarGraphCard}
     }
 </script>

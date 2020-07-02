@@ -3,7 +3,7 @@
         <vs-row vs-justify="center">
             <vs-col type="flex" vs-align="center" vs-justify="center" vs-w="8">
                 <div v-for="i in endpoints" :key="i">
-                   <DocumentCard :endpoint="i"/>
+                   <EndpointCard :endpoint="i"/>
                 </div>
             </vs-col>
         </vs-row>
@@ -11,10 +11,10 @@
 </template>
 
 <script>
-    import DocumentCard from "../../component/Cards/DocumentCard";
+    import EndpointCard from "./EndpointCard";
     export default {
-        name: "DocumentCards",
-        components: {DocumentCard},
+        name: "GroupedEndpoints",
+        components: {EndpointCard},
         props: {
             endpoints: Array
         },

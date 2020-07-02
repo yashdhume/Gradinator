@@ -21,7 +21,7 @@
 
 <script>
     export default {
-        name: "IndividualGradeCard",
+        name: "SummaryGradeProgressCard",
         props: {
             prof: String,
             grade: Array,

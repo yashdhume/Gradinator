@@ -17,8 +17,8 @@
 
 <script>
     import Lottie from "vue-lottie";
-    import FullLogo from "../animations/FullLogo";
-    import Login from "../component/popups/Login";
+    import FullLogo from "../assets/animations/FullLogo";
+    import Login from "../components/popups/Login";
     export default {
         name: "AppBar",
         components: {Lottie, Login},

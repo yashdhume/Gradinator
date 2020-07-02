@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import RegistrationCard from "../components/Cards/RegistrationCard";
+    import RegistrationCard from "../components/registration_cards/RegistrationCard";
 
 
     export default {

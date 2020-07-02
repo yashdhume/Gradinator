@@ -6,7 +6,7 @@
                     <h5>Grade Summary</h5>
                 </div>
                 <div>
-                    <LineGraphData/>
+                    <GradeSummaryLineGraphData/>
                 </div>
             </vs-card>
         </vs-col>
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-    import LineGraphData from "../../../ui_data/LineGraphData";
+    import GradeSummaryLineGraphData from "../../../ui_data/GradeSummaryLineGraphData";
 
     export default {
-        name: "LineGraphCard",
-        components: {LineGraphData}
+        name: "GradeSummaryBarGraphCard",
+        components: {GradeSummaryLineGraphData}
     }
 </script>

@@ -36,9 +36,8 @@
 <script>
     import DataWithTitleOnBottom from "../miscellaneous/DataWithTitleOnBottom";
     import GroupedAvatars from "../miscellaneous/GroupedAvatars";
-    import EnrollAnimation from "../../animations/EnrollAnimation";
+    import EnrollAnimation from "../../assets/animations/EnrollAnimation";
     import Lottie from "vue-lottie";
-
     export default {
         name: "CourseCard",
         components: {GroupedAvatars, DataWithTitleOnBottom, Lottie},

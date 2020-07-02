@@ -10,10 +10,10 @@
 </template>
 
 <script>
-    import SchoolCard from "../../component/Cards/SchoolCard";
+    import SchoolCard from "./SchoolCard";
     import {mapState} from "vuex";
     export default {
-        name: "SchoolCards",
+        name: "GroupedSchoolCards",
         components: {SchoolCard},
         mounted() {
             this.$store.dispatch('loadUniversity')

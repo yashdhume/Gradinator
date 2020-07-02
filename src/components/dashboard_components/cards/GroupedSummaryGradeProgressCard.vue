@@ -4,7 +4,7 @@
         <div :key="i" v-for="i in this.enrolledCourses.data.courses">
             <vs-col>
 
-                <IndividualGradeCard
+                <SummaryGradeProgressCard
                         v-bind:prof="i.course.professor"
                         v-bind:roomNumber="i.course.room"
                         v-bind:color="i.course.color"
@@ -17,12 +17,12 @@
 </template>
 
 <script>
-    import IndividualGradeCard from "../../component/Cards/IndividualGradeCard";
+    import SummaryGradeProgressCard from "./SummaryGradeProgressCard";
     import {mapState} from "vuex";
 
     export default {
-        name: "IndividualGradeCards",
-        components: {IndividualGradeCard},
+        name: "GroupedSummaryGradeProgressCard",
+        components: {SummaryGradeProgressCard},
         data: () => ({}),
         mounted() {
             this.$store.dispatch('getEnrolledCourses')

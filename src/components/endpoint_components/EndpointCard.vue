@@ -65,7 +65,7 @@
 
 <script>
     export default {
-        name: "DocumentCard",
+        name: "EndpointCard",
         props: {
             endpoint: Array
         }

@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: '',
-            component: () => import('./main_layout/MainPage.vue'),
+            component: () => import('./main_layout/MainLayout.vue'),
             children: [
                 {
                     path: '/dashboard',
@@ -19,7 +19,7 @@ export default new Router({
                   path: '/courses',
                   name: 'Courses',
                   index: 2,
-                  component: ()=> import('./views/Courses')
+                  component: ()=> import('./components/course_components/GroupedCoursesCard')
                 },
                 {
                     path: '/docs',
