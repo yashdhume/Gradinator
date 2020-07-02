@@ -6,7 +6,7 @@
                     <v-row class="text-center justify-content-around" align="center" style="padding: 10px">
                         <vs-chip :color="course.major.color">{{course.major.name}}</vs-chip>
                         <vs-chip color="success">{{course.semester}} {{course.year}}</vs-chip>
-                        <h6>🔥 {{Math.floor(Math.random() * 101)}}</h6>
+                        <h6>🔥 {{course.likeCount}}</h6>
                     </v-row>
                     <div style="padding: 10px"/>
                     <h4>{{course.name}}</h4>
