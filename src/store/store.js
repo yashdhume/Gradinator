@@ -12,6 +12,7 @@ const site = "https://gradinator.herokuapp.com/";
 export const store = new Vuex.Store({
     plugins: [
         createPersistedState({
+            paths: ['token'],
             storage: {
                 getItem: key => ls.get(key),
                 setItem: (key, value) => ls.set(key, value),
