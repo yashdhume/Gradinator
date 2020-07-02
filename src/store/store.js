@@ -49,13 +49,11 @@ export const store = new Vuex.Store({
                 .then(r=>commit('SAVE_UNIVERSITY', r));
         },
         enrollCourse({state}, value){
-            console.log("TOKEN")
-            console.log(state.token.tokenSecret)
             return new Promise((resolve) => {
                 axios
                     .post(site + 'gradebook/enroll?' + "&courseId=" + value,{},
                         {headers: {'tokenId': state.token.tokenId, 'tokenSecret': state.token.tokenSecret}})
-                    .then(r =>{console.log(r);resolve(r.data)});
+                    .then(r =>resolve(r.data));
             });
         }
     },
