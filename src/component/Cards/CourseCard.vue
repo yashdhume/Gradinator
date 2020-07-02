@@ -17,7 +17,7 @@
                         <DataWithTitleOnBottom :topData="course.code" title="Course Code"/>
                         <GroupedAvatars :images="images"></GroupedAvatars>
                     </v-row>
-                    <div @click="play(course.id)" v-if="$store.state.token.tokenId">
+                    <div @click="enrollCourse(course.id)" v-if="$store.state.token.tokenId">
                         <lottie
                                 v-on:animCreated="handleAnimation"
                                 style="max-height: 50px"
@@ -59,17 +59,18 @@
             handleAnimation: function (anim) {
                 this.anim = anim;
             },
-
-            stop() {
+            stopAnimation() {
                 this.anim.stop();
             },
-
-            play(val) {
+            playAnimation(){
+                this.anim.play();
+            },
+            enrollCourse(val) {
                 this.$store.dispatch('enrollCourse', val).then((response) => {
                     if (response.error) {
                         this.$vs.notify({title: 'Error', text: response.error, color: 'danger', position: 'top-right'})
                     } else {
-                        console.log(response.data);
+                        this.playAnimation()
                         this.$vs.notify({
                             title: 'Success',
                             text: "Class is enrolled",
@@ -78,10 +79,10 @@
                         })
                     }
                 })
-                this.anim.play();
+
             },
 
-            pause() {
+            pauseAnimation() {
                 this.anim.pause();
             },
         }
