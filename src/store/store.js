@@ -26,6 +26,7 @@ export const store = new Vuex.Store({
         loginData: {},
         universityData: {},
         token: {},//tokenId, tokenSecret
+        enrolledCourses: {},
         isLoginPopupOpen: false,
     },
     actions: {
@@ -70,6 +71,12 @@ export const store = new Vuex.Store({
                         {headers: {'tokenId': state.token.tokenId, 'tokenSecret': state.token.tokenSecret}})
                     .then(r => resolve(r.data));
             });
+        },
+        getEnrolledCourses({commit, state}){
+            axios
+                .get(site+'gradebook',
+                    {headers: {'tokenId': state.token.tokenId, 'tokenSecret': state.token.tokenSecret}})
+                .then(r=>commit('SET_ENROLLED_COURSES', r))
         }
     },
     mutations: {
@@ -90,6 +97,9 @@ export const store = new Vuex.Store({
         },
         SET_TOKEN(state, value) {
             state.token = value;
+        },
+        SET_ENROLLED_COURSES(state, value){
+            state.enrolledCourses = value;
         }
 
     },

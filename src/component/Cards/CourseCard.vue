@@ -18,6 +18,7 @@
                         <GroupedAvatars :images="images"></GroupedAvatars>
                     </v-row>
                     <div @click="enrollCourse(course.id)" v-if="$store.state.token.tokenId">
+                        {{isEnrolled(course.id)}}
                         <lottie
                                 v-on:animCreated="handleAnimation"
                                 style="max-height: 50px"
@@ -44,7 +45,18 @@
         props: {
             course: Object
         },
+        mounted() {
+          this.$store.dispatch('getEnrolledCourses').then(()=>{
+              this.enrolledCoursesId = []
+              this.$store.state.enrolledCourses.data.courses.forEach(course=>{
+                  this.enrolledCoursesId.push(course.course.id)
+
+              })
+              console.log(this.enrolledCoursesId)
+          })
+        },
         data: () => ({
+            enrolledCoursesId: [],
             animationSpeed: 0,
             activeIndex: 0,
             enrollOptions: {animationData: EnrollAnimation, loop: false, autoplay: false},
@@ -80,6 +92,9 @@
                     }
                 })
 
+            },
+            isEnrolled(courseId){
+                if(this.enrolledCoursesId.includes(courseId)) this.playAnimation();
             },
 
             pauseAnimation() {
