@@ -9,11 +9,11 @@
             <span v-else style="color:red;font-weight:bold">No Grade Data</span>
         </div>
         <b-progress class="mt-2" v-if="grade.currentGrade" style="height: 20px">
-            <b-progress-bar :value="grade.minimumGrade*100" variant="success" show-value tile="as"/>
-            <b-progress-bar :value="((grade.maximumGrade-grade.minimumGrade)*100)/2-2" variant="warning"/>
-            <b-progress-bar v-if="!(grade.minimumGrade>=grade.maximumGrade)" :value="3" variant="dark">{{grade.currentGrade*100}}</b-progress-bar>
-            <b-progress-bar :value="((grade.maximumGrade-grade.minimumGrade)*100)/2-1" variant="warning"/>
-            <b-progress-bar :value="(1-grade.maximumGrade)*100" variant="danger" show-value/>
+            <b-progress-bar :value="grade.minimumGrade*100" variant="success" show-value/>
+            <b-progress-bar :value="((grade.currentGrade-grade.minimumGrade)*100)-2" variant="warning"/>
+            <b-progress-bar v-if="!(grade.minimumGrade>=grade.maximumGrade)" :value="4" variant="dark">{{(grade.currentGrade*100).toFixed(0)}}</b-progress-bar>
+            <b-progress-bar :value="((grade.maximumGrade-grade.currentGrade)*100)-2" variant="warning"/>
+            <b-progress-bar :value="(1-grade.maximumGrade)*100" variant="danger">{{(grade.maximumGrade*100).toFixed(0)}}</b-progress-bar>
         </b-progress>
         <div v-else style="height: 20px"/>
     </vs-card>
@@ -36,3 +36,4 @@
 <style>
 
 </style>
+
