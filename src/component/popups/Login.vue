@@ -41,8 +41,7 @@
                         this.password= '';
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'})
                         this.$store.commit('IS_LOGIN_ACTIVE', false)
-                        console.log("tokenID: " + this.$store.state.token.tokenId)
-                        console.log("tokenSecret: " + this.$store.state.token.tokenSecret)
+                        location.reload()
                     }
                 })
 
