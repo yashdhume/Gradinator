@@ -2,7 +2,7 @@
     <b-progress class="mt-2" style="height: 20px">
         <b-progress-bar
                 v-b-tooltip.hover.bottom="`You are guaranteed a ${(grade.minimumGrade*100).toFixed(2)}% in this course`"
-                :value="grade.minimumGrade*100" variant="danger" show-value/>
+                :value="grade.minimumGrade*100" variant="success">{{(grade.minimumGrade*100).toFixed(0)}}%</b-progress-bar>
         <b-progress-bar
                 v-b-tooltip.hover.bottom="`You can potentially get ${(grade.minimumGrade*100).toFixed(2)}% - ${(grade.maximumGrade*100).toFixed(2)}%`"
                 :value="((grade.currentGrade-grade.minimumGrade)*100)" variant="warning"/>
@@ -14,7 +14,7 @@
                         :value="((grade.maximumGrade-grade.currentGrade)*100)" variant="warning"/>
         <b-progress-bar
                 v-b-tooltip.hover.bottom="`The highest mark you can get is ${(grade.maximumGrade*100).toFixed(0)}% in this course`"
-                :value="(1-grade.maximumGrade)*100" variant="success">{{(grade.maximumGrade*100).toFixed(0)}}
+                :value="(1-grade.maximumGrade)*100" variant="danger">{{(grade.maximumGrade*100).toFixed(0)}}%
         </b-progress-bar>
     </b-progress>
 </template>
