@@ -20,6 +20,8 @@
             <span v-else style="color:red;font-weight:bold">No Grade Data</span>
         </div>
         <div v-if="grade.currentGrade">
+            <GradeProgressBarDynamicColor v-if="true" :grade="grade"/>
+            <div style="padding: 10px"/>
             <GradeProgressBarConstantColor v-if="true" :grade="grade"/>
         </div>
 
@@ -28,10 +30,11 @@
 </template>
 
 <script>
+    import GradeProgressBarDynamicColor from "./GradeProgressBarDynamicColor";
     import GradeProgressBarConstantColor from "./GradeProgressBarConstantColor";
     export default {
         name: "SummaryGradeProgressCard",
-        components: {GradeProgressBarConstantColor},
+        components: {GradeProgressBarConstantColor, GradeProgressBarDynamicColor},
         props: {
             prof: String,
             grade: Array,
