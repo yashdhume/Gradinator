@@ -8,6 +8,11 @@
                     :height="200"
                     :width="200"/>
             <v-spacer></v-spacer>
+            <vs-switch v-model="progressBarChoice">
+                <span slot="on">Dynamic</span>
+                <span slot="off">Constant</span>
+            </vs-switch>
+            <div style="padding: 10px"/>
             <v-btn @click.stop="activeLogin"><Login/>Login</v-btn>
         </v-app-bar>
     </header>
@@ -28,12 +33,20 @@
             },
             activeLogin(){
                 this.$store.commit('IS_LOGIN_ACTIVE', true)
-            }
+            },
 
+
+        },
+
+        watch:{
+            progressBarChoice(val){
+                this.$store.commit('IS_PROGRESS_BAR_DYNAMIC_CHOICE', val)
+            }
         },
         data: () => ({
             logoOptions: {animationData: FullLogo, loop: false},
-            popup:false
+            popup:false,
+            progressBarChoice: false,
         }),
     }
 </script>

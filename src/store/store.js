@@ -12,7 +12,7 @@ const site = "https://gradinator.herokuapp.com/";
 export const store = new Vuex.Store({
     plugins: [
         createPersistedState({
-            paths: ['token'],
+            paths: ['token', 'progressBarDynamicChoice'],
             storage: {
                 getItem: key => ls.get(key),
                 setItem: (key, value) => ls.set(key, value),
@@ -22,6 +22,7 @@ export const store = new Vuex.Store({
     ],
     state: {
         isDrawerOpen: false,
+        progressBarDynamicChoice: true,
         documentationData: {},
         courseData: {},
         loginData: {},
@@ -86,6 +87,9 @@ export const store = new Vuex.Store({
         },
         IS_LOGIN_ACTIVE(state, value) {
             state.isLoginPopupOpen = value;
+        },
+        IS_PROGRESS_BAR_DYNAMIC_CHOICE(state, value){
+            state.progressBarDynamicChoice = value;
         },
         SAVE_DOCUMENTATION(state, value) {
             state.documentationData = value;

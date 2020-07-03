@@ -20,9 +20,8 @@
             <span v-else style="color:red;font-weight:bold">No Grade Data</span>
         </div>
         <div v-if="grade.currentGrade">
-            <GradeProgressBarDynamicColor v-if="true" :grade="grade"/>
-            <div style="padding: 10px"/>
-            <GradeProgressBarConstantColor v-if="true" :grade="grade"/>
+            <GradeProgressBarDynamicColor v-if="isDynamicActivated" :grade="grade"/>
+            <GradeProgressBarConstantColor v-if="!isDynamicActivated" :grade="grade"/>
         </div>
 
         <div v-else style="height: 20px"/>
@@ -44,6 +43,14 @@
         },
         data: () => ({
         }),
+        computed: {
+            isDynamicActivated: {
+                get() {
+                    return this.$store.state.progressBarDynamicChoice;
+                },
+
+            }
+        },
 
     }
 </script>
