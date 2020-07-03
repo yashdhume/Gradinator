@@ -6,7 +6,7 @@
     </v-app>
 </template>
 <script>
-    import GroupedSummaryGradeProgressCard from "../components/dashboard_components/cards/GroupedSummaryGradeProgressCard";
+    import GroupedSummaryGradeProgressCard from "../components/dashboard_components/cards/SummaryGrade/GroupedSummaryGradeProgressCard";
     import GradeSummaryLineGraphCard from "../components/dashboard_components/graphs/GradeSummaryLineGraphCard";
     import GradeSummaryBarGraphCard from "../components/dashboard_components/graphs/GradeSummaryBarGraphCard";
     export default {
