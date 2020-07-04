@@ -27,6 +27,12 @@ export default new Router({
                     index: 3,
                     component: () => import('./views/Documentation')
                 },
+                {
+                    path: '/create_course',
+                    name: 'CreateCourse',
+                    index: 4,
+                    component: ()=> import('./views/CreateCoursePage')
+                }
             ],
         },
         {
