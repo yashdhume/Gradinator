@@ -1,39 +1,64 @@
 <template>
     <vs-row vs-align="center"
             vs-justify="space-around" vs-type="flex">
-        <div v-for="i in courseData.data.courses" :key="i">
-            <CourseCard v-bind:course="i" v-bind:enrolled-courses-id="enrolledCoursesId"/>
+        <div v-for="i in this.courses" :key="i">
+            <CourseCard
+                    :course="i"
+                    :is-enrolled="isEnrolled(i)"
+                    :can-enroll="isSignedIn()"
+                    @enroll="enroll"/>
         </div>
-
     </vs-row>
 </template>
 
 <script>
     import CourseCard from "./CourseCard";
+    import {enrollCourse, getCourses, getEnrolledCourses} from "../../api/api";
     import {mapState} from "vuex";
 
     export default {
-        mounted() {
-            this.$store.dispatch('loadCourses');
-            this.$store.dispatch('loadEnrolledCourses').then(()=>{
-                this.enrolledCoursesId = []
-                this.$store.state.enrolledCourses.data.courses.forEach(course=>{
-                    this.enrolledCoursesId.push(course.course.id)
-                });
-            })
-
-        },
-        computed:{
+        computed: {
             ...mapState([
-                'courseData',
-                'enrolledCourses'
+                'token',
             ])
+        },
+        data(){
+            return {
+                courses: [],
+                enrolledCourses: [],
+            }
+        },
+        created() {
+            getCourses().then(x => { this.courses = x.courses; });
+            getEnrolledCourses(this.$store.state.token).then(x => {
+                if(!x.error){ this.enrolledCourses = x.courses; }
+            });
+        },
+        methods: {
+            enroll: function(courseId){
+                enrollCourse(courseId, this.$store.state.token).then(res => {
+                    if (res.error) {
+                        this.$vs.notify({title: 'Error', text: res.error, color: 'danger', position: 'top-right'})
+                    } else {
+                        this.$vs.notify({
+                            title: 'Success',
+                            text: "Class is enrolled",
+                            color: 'success',
+                            position: 'top-right'
+                        });
+                        this.enrolledCourses = res.courses;
+                    }
+                });
+            },
+            isEnrolled(course){
+                return this.enrolledCourses.map(x => x.course.id).indexOf(course.id) !== -1;
+            },
+            isSignedIn: function(){
+                return this.token.tokenId !== undefined;
+            }
         },
         name: "GroupedCoursesCard",
         components: {CourseCard},
-        data: () => ({
-            enrolledCoursesId: [],
-        }),
     }
 </script>
 

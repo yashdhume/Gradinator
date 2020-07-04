@@ -15,13 +15,13 @@
                     <v-row class="text-center justify-content-around" align="center">
                         <DataWithTitleOnBottom :topData="course.crn" title="CRN"/>
                         <DataWithTitleOnBottom :topData="course.code" title="Course Code"/>
-                        <GroupedAvatars :images="images"></GroupedAvatars>
+                        <GroupedAvatars :images="images"/>
                     </v-row>
-                    <div @click="enrollCourse(course.id)" v-if="$store.state.token.tokenId">
+                    <div @click="enrollCourse()" v-if="canEnroll">
                         <lottie
                                 v-on:animCreated="handleAnimation"
                                 style="max-height: 50px"
-                                :options="enrollOptions"
+                                :options="animationOptions"
                                 :height="150"
                                 :width="150"/>
                     </div>
@@ -29,7 +29,6 @@
             </v-card>
         </template>
     </v-hover>
-
 </template>
 
 <script>
@@ -37,58 +36,51 @@
     import GroupedAvatars from "../miscellaneous/GroupedAvatars";
     import EnrollAnimation from "../../assets/animations/EnrollAnimation";
     import Lottie from "vue-lottie";
+
     export default {
         name: "CourseCard",
         components: {GroupedAvatars, DataWithTitleOnBottom, Lottie},
         props: {
             course: Object,
-            enrolledCoursesId: Array,
+            canEnroll: Boolean,
+            isEnrolled: Boolean,
         },
-        mounted() {
-            if(this.enrolledCoursesId.includes(this.course.id)) this.playAnimation();
+        mounted(){
+            console.log("M:"+this.isEnrolled);
+            if(this.isEnrolled) this.playAnimation();
         },
-        data: () => ({
-            animationSpeed: 0,
-            activeIndex: 0,
-            enrollOptions: {animationData: EnrollAnimation, loop: false, autoplay: false},
-            images: ['https://cdn.dribbble.com/users/1709884/screenshots/5070649/scribl_avatar-11.png',
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKbRH4Jh9B0D6CXyNByqqfuoKXwcbYsSkHoFwp6fsHabi1cygm&usqp=CAU',
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSS1_an2x9kdsUqcWy2kGMNUMlYXbyf0Sr9896Tx5uXZbNvIc2L&usqp=CAU',
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQb_sJKWw_q9tobdfkHLUCvYj3pNVd4EOV8XTxGRhSDpnagZZIs&usqp=CAU',
-                'https://cdn.imgbin.com/21/5/0/imgbin-computer-icons-avatar-social-media-blog-font-awesome-avatar-JdPkyt0m7ykS2bDNq99AHNXKV.jpg'
-            ]
-        }),
+        update(){
+            console.log("U:"+this.isEnrolled);
+            if(this.isEnrolled) this.playAnimation();
+            else this.resetAnimation();
+        },
+        data() {
+            return {
+                animationSpeed: 0,
+                activeIndex: 0,
+                animationOptions: {animationData: EnrollAnimation, loop: false, autoplay: false},
+                images: ['https://cdn.dribbble.com/users/1709884/screenshots/5070649/scribl_avatar-11.png',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSKbRH4Jh9B0D6CXyNByqqfuoKXwcbYsSkHoFwp6fsHabi1cygm&usqp=CAU',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSS1_an2x9kdsUqcWy2kGMNUMlYXbyf0Sr9896Tx5uXZbNvIc2L&usqp=CAU',
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQb_sJKWw_q9tobdfkHLUCvYj3pNVd4EOV8XTxGRhSDpnagZZIs&usqp=CAU',
+                    'https://cdn.imgbin.com/21/5/0/imgbin-computer-icons-avatar-social-media-blog-font-awesome-avatar-JdPkyt0m7ykS2bDNq99AHNXKV.jpg'
+                ]
+            }
+        },
         methods: {
             handleAnimation: function (anim) {
                 this.anim = anim;
             },
-            stopAnimation() {
-                this.anim.stop();
-            },
             playAnimation(){
                 this.anim.play();
             },
-            enrollCourse(val) {
-                if(this.isEnrolled()){
-                    return;
-                }
-                this.$store.dispatch('enrollCourse', val).then((response) => {
-                    if (response.error) {
-                        this.$vs.notify({title: 'Error', text: response.error, color: 'danger', position: 'top-right'})
-                    } else {
-                        this.playAnimation()
-                        this.$vs.notify({
-                            title: 'Success',
-                            text: "Class is enrolled",
-                            color: 'success',
-                            position: 'top-right'
-                        })
-                    }
-                })
-
+            resetAnimation(){
+                this.anim.reset();
             },
-            pauseAnimation() {
-                this.anim.pause();
+            enrollCourse() {
+                if(this.isEnrolled) return;
+                this.$emit("enroll", this.course.id);
+                this.playAnimation();
             },
         }
     }

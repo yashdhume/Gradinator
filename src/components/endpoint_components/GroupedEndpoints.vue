@@ -20,8 +20,6 @@
         },
         data: () => ({
             isPopupActive: false,
-            isGet: true,
-
         }),
     }
 </script>

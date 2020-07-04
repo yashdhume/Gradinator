@@ -13,7 +13,9 @@
                 <span slot="off">Constant</span>
             </vs-switch>
             <div style="padding: 10px"/>
-            <v-btn v-if="!this.$store.state.token.tokenId" @click.stop="activeLogin"><Login/>Login</v-btn>
+            <v-btn v-if="!this.$store.state.token.tokenId" @click.stop="openLogin">
+                <Login v-bind:is-active="isLoginActive" />Login
+            </v-btn>
             <v-btn v-else  @click.stop="logout">Logout</v-btn>
         </v-app-bar>
     </header>
@@ -32,14 +34,12 @@
             activeDrawer() {
                 this.$store.commit('IS_DRAWER_ACTIVE', true);
             },
-            activeLogin(){
-                this.$store.commit('IS_LOGIN_ACTIVE', true)
+            openLogin(){
+                this.isLoginActive = true;
             },
             logout(){
                 this.$store.commit('SET_TOKEN', {})
             }
-
-
         },
 
         watch:{
@@ -48,6 +48,7 @@
             }
         },
         data: () => ({
+            isLoginActive: false,
             logoOptions: {animationData: FullLogo, loop: false},
             popup:false,
             progressBarChoice: false,

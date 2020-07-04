@@ -19,7 +19,7 @@ export default new Router({
                   path: '/courses',
                   name: 'Courses',
                   index: 2,
-                  component: ()=> import('./components/course_components/GroupedCoursesCard')
+                  component: ()=> import('./views/Courses')
                 },
                 {
                     path: '/docs',
