@@ -42,13 +42,12 @@
         components: {GroupedAvatars, DataWithTitleOnBottom, Lottie},
         props: {
             course: Object,
+            enrolledCoursesId: Array,
         },
         mounted() {
-            this.enrolledCoursesId = this.$store.state.enrolledCoursesId;
-            this.isEnrolled();
+            if(this.enrolledCoursesId.includes(this.course.id)) this.playAnimation();
         },
         data: () => ({
-            enrolledCoursesId: [],
             animationSpeed: 0,
             activeIndex: 0,
             enrollOptions: {animationData: EnrollAnimation, loop: false, autoplay: false},
@@ -91,13 +90,6 @@
             pauseAnimation() {
                 this.anim.pause();
             },
-            isEnrolled(){
-                if(this.enrolledCoursesId.includes(this.course.id)) {
-                    this.playAnimation();
-                    return true;
-                }
-                return false;
-            }
         }
     }
 </script>

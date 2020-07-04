@@ -29,7 +29,6 @@ export const store = new Vuex.Store({
         universityData: {},
         token: {},//tokenId, tokenSecret
         enrolledCourses: {},
-        enrolledCoursesId: {},
         isLoginPopupOpen: false,
     },
     actions: {
@@ -50,12 +49,13 @@ export const store = new Vuex.Store({
                     .then(r => resolve(r.data));
             })
         },
-        Login(state, value) {
+        Login({commit, dispatch}, value) {
             return new Promise((resolve) => {
                 axios
                     .post(site + `user/signIn?username=${value.username}&password=${value.password}`)
                     .then(r => {
-                        state.commit('SET_TOKEN', r.data.token)
+                        commit('SET_TOKEN', r.data.token)
+                        dispatch('loadEnrolledCourses')
                         resolve(r.data);
                     });
             });
@@ -79,12 +79,6 @@ export const store = new Vuex.Store({
                 .get(site+'gradebook',
                     {headers: {'tokenId': state.token.tokenId, 'tokenSecret': state.token.tokenSecret}})
                 .then(r=>{
-                    let courseIds = [];
-                    r.data.courses.forEach(course=>{
-                        console.log(course)
-                        courseIds.push(course.course.id)
-                    });
-                    commit('SET_ENROLLED_COURSES_ID', courseIds)
                     commit('SET_ENROLLED_COURSES', r)
                 })
         }
@@ -114,9 +108,6 @@ export const store = new Vuex.Store({
         SET_ENROLLED_COURSES(state, value){
             state.enrolledCourses = value;
         },
-        SET_ENROLLED_COURSES_ID(state, value){
-            state.enrolledCoursesId = value;
-        }
 
     },
     getters: {

@@ -13,7 +13,8 @@
                 <span slot="off">Constant</span>
             </vs-switch>
             <div style="padding: 10px"/>
-            <v-btn @click.stop="activeLogin"><Login/>Login</v-btn>
+            <v-btn v-if="!this.$store.state.token.tokenId" @click.stop="activeLogin"><Login/>Login</v-btn>
+            <v-btn v-else  @click.stop="logout">Logout</v-btn>
         </v-app-bar>
     </header>
 
@@ -34,6 +35,9 @@
             activeLogin(){
                 this.$store.commit('IS_LOGIN_ACTIVE', true)
             },
+            logout(){
+                this.$store.commit('SET_TOKEN', {})
+            }
 
 
         },

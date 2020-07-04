@@ -41,11 +41,13 @@
                         this.password= '';
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'})
                         this.$store.commit('IS_LOGIN_ACTIVE', false)
+                        console.log(this.$router.currentRoute.name)
                         location.reload()
                     }
                 })
 
-            }
+            },
+
         }
     }
 </script>
