@@ -1,8 +1,4 @@
-import Vue from 'vue'
-import axios from "axios";
-
-Vue.use(axios);
-
+import $ from "jquery"
 const site = "https://gradinator.herokuapp.com";
 
 //documentation
@@ -22,9 +18,25 @@ export async function enrollCourse(courseId, token) {
     })).json();
 }
 
+export async function createCourse(courseData) {
+    return(await fetch(site+ "/courses/createCourse?" + $.param(courseData),{
+        method: "POST"
+    })).json()
+}
+
 //gradebook
 export async function getEnrolledCourses(token){
     return (await fetch(site + "/gradebook", {
        headers: { ...token },
     })).json();
+}
+
+//majors
+export async function getMajors(){
+    return (await fetch(site + "/majors")).json();
+}
+
+//universities
+export async function getUniversities(){
+    return (await fetch(site + "/universities")).json();
 }

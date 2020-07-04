@@ -16,26 +16,22 @@
             </el-col>
             <el-col :span="12">
                 <el-form-item label="Year" prop="year" required>
-                    <el-date-picker type="year" placeholder="Pick a year" v-model="ruleForm.year" size="width: 100%"/>
+                    <el-date-picker type="year"  format="yyyy" value-format="yyyy" placeholder="Pick a year" v-model="ruleForm.year" size="width: 100%"/>
                 </el-form-item>
             </el-col>
         </el-form-item>
         <el-form-item>
             <el-col :span="12">
-                <el-form-item label="Major" prop="majorId" >
-                    <el-select v-model="ruleForm.majorId" placeholder="Computer Science">
-                        <el-option label="Computer Science" value="Computer Science"/>
-                        <el-option label="Science" value="Science"/>
-                        <el-option label="Engineering" value="Engineering"/>
+                <el-form-item label="Major" prop="majorId">
+                    <el-select v-model="ruleForm.majorId" :placeholder="this.majors[0].name">
+                        <el-option v-for="i in this.majors" :key="i" :label="i.name" :value="i.id"/>
                     </el-select>
                 </el-form-item>
             </el-col>
             <el-col :span="12">
                 <el-form-item label="University" prop="universityId">
-                    <el-select v-model="ruleForm.universityId" placeholder="Ontario Tech University">
-                        <el-option label="Ontario Tech University" value="Ontario Tech University"/>
-                        <el-option label="Waterloo" value="Waterloo"/>
-                        <el-option label="University of Toronto" value="University of Toronto"/>
+                    <el-select v-model="ruleForm.universityId" :placeholder="this.universities[0].name">
+                        <el-option v-for="i in this.universities" :key="i" :label="i.name" :value="i.id"/>
                     </el-select>
                 </el-form-item>
             </el-col>
@@ -72,6 +68,7 @@
 </template>
 
 <script>
+    import {getUniversities, getMajors, createCourse} from "../../api/api";
     export default {
         name: "CreateCourseForm",
         computed:{
@@ -84,8 +81,14 @@
                 }
             }
         },
+        mounted() {
+          this.getApiCalls()
+        },
         data() {
             return {
+                universities: [],
+                majors: [],
+                courseResponse: {},
                 ruleForm: {
                     name: '',
                     semester: [],
@@ -103,7 +106,6 @@
                     ],
                     semester: [
                         {
-                            type: 'array',
                             required: true,
                             message: 'Please select a semester',
                             trigger: 'blur'
@@ -111,7 +113,6 @@
                     ],
                     year: [
                         {
-                            type: 'date',
                             required: true,
                             message: 'Please pick a year',
                             trigger: 'blur'
@@ -119,7 +120,6 @@
                     ],
                     majorId: [
                         {
-                            type: 'array',
                             required: true,
                             message: 'Please select a major',
                             trigger: 'blur'
@@ -127,7 +127,6 @@
                     ],
                     universityId: [
                         {
-                            type: 'array',
                             required: true,
                             message: 'Please select a university',
                             trigger: 'blur'
@@ -152,13 +151,29 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        this.postCreateCourse();
+                        if(this.courseResponse.error){
+                            this.$vs.notify({title:'Error',text:this.courseResponse.error,color:'danger',position:'top-right'})
+                            this.$router.push({name: "Courses"})
+                        }
+                        else{
+                            this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
+
+                        }
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
             },
+            getApiCalls(){
+                getMajors().then(r=>this.majors=r.majors)
+                getUniversities().then(r=>this.universities=r.universities)
+            },
+            postCreateCourse(){
+                createCourse(this.ruleForm).then(r=>this.courseResponse=r)
+            }
+
         }
     }
 </script>
