@@ -14,15 +14,21 @@
 
     export default {
         mounted() {
-            this.$store.dispatch('loadCourses')
+            this.$store.dispatch('loadCourses');
         },
         computed:{
             ...mapState([
-                'courseData'
+                'courseData',
+                'enrolledCourses'
             ])
         },
         name: "GroupedCoursesCard",
         components: {CourseCard},
+        data: () => ({
+            enrolledCoursesId: [],
+        }),
+        methods:{
+        }
     }
 </script>
 

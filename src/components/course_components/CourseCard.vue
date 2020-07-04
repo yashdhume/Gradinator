@@ -18,7 +18,6 @@
                         <GroupedAvatars :images="images"></GroupedAvatars>
                     </v-row>
                     <div @click="enrollCourse(course.id)" v-if="$store.state.token.tokenId">
-                        {{isEnrolled(course.id)}}
                         <lottie
                                 v-on:animCreated="handleAnimation"
                                 style="max-height: 50px"
@@ -42,17 +41,11 @@
         name: "CourseCard",
         components: {GroupedAvatars, DataWithTitleOnBottom, Lottie},
         props: {
-            course: Object
+            course: Object,
         },
         mounted() {
-          this.$store.dispatch('getEnrolledCourses').then(()=>{
-              this.enrolledCoursesId = []
-              this.$store.state.enrolledCourses.data.courses.forEach(course=>{
-                  this.enrolledCoursesId.push(course.course.id)
-
-              })
-              console.log(this.enrolledCoursesId)
-          })
+            this.enrolledCoursesId = this.$store.state.enrolledCoursesId;
+            this.isEnrolled();
         },
         data: () => ({
             enrolledCoursesId: [],
@@ -77,6 +70,9 @@
                 this.anim.play();
             },
             enrollCourse(val) {
+                if(this.isEnrolled()){
+                    return;
+                }
                 this.$store.dispatch('enrollCourse', val).then((response) => {
                     if (response.error) {
                         this.$vs.notify({title: 'Error', text: response.error, color: 'danger', position: 'top-right'})
@@ -92,13 +88,16 @@
                 })
 
             },
-            isEnrolled(courseId){
-                if(this.enrolledCoursesId.includes(courseId)) this.playAnimation();
-            },
-
             pauseAnimation() {
                 this.anim.pause();
             },
+            isEnrolled(){
+                if(this.enrolledCoursesId.includes(this.course.id)) {
+                    this.playAnimation();
+                    return true;
+                }
+                return false;
+            }
         }
     }
 </script>

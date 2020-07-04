@@ -12,7 +12,7 @@ const site = "https://gradinator.herokuapp.com/";
 export const store = new Vuex.Store({
     plugins: [
         createPersistedState({
-            paths: ['token', 'progressBarDynamicChoice'],
+            paths: ['token', 'progressBarDynamicChoice', 'enrolledCoursesId'],
             storage: {
                 getItem: key => ls.get(key),
                 setItem: (key, value) => ls.set(key, value),
@@ -56,7 +56,6 @@ export const store = new Vuex.Store({
                     .post(site + `user/signIn?username=${value.username}&password=${value.password}`)
                     .then(r => {
                         state.commit('SET_TOKEN', r.data.token)
-                        createPersistedState('')
                         resolve(r.data);
                     });
             });
@@ -79,7 +78,15 @@ export const store = new Vuex.Store({
             axios
                 .get(site+'gradebook',
                     {headers: {'tokenId': state.token.tokenId, 'tokenSecret': state.token.tokenSecret}})
-                .then(r=>commit('SET_ENROLLED_COURSES', r))
+                .then(r=>{
+                    let courseIds = [];
+                    r.data.courses.forEach(course=>{
+                        console.log(course)
+                        courseIds.push(course.course.id)
+                    });
+                    commit('SET_ENROLLED_COURSES_ID', courseIds)
+                    commit('SET_ENROLLED_COURSES', r)
+                })
         }
     },
     mutations: {
@@ -106,13 +113,14 @@ export const store = new Vuex.Store({
         },
         SET_ENROLLED_COURSES(state, value){
             state.enrolledCourses = value;
+        },
+        SET_ENROLLED_COURSES_ID(state, value){
+            state.enrolledCoursesId = value;
         }
 
     },
     getters: {
         getToken(state) {
-            console.log("AAA")
-            console.log(state.token)
             return state.token
         }
     },
