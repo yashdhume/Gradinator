@@ -22,8 +22,8 @@
         },
         data(){
             return {
-                username:'',
-                password:'',
+                username: '',
+                password: '',
             }
         },
         methods: {
@@ -42,7 +42,8 @@
                         this.username= '';
                         this.password= '';
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'});
-                        this.isActive = false;
+                        console.log("triggered");
+                        this.$emit("closeLogin");
                     }
                 })
 

@@ -43,15 +43,15 @@
         props: {
             course: Object,
             canEnroll: Boolean,
-            isEnrolled: Boolean,
+            enrolledCourses: [],
         },
         mounted(){
-            console.log("M:"+this.isEnrolled);
-            if(this.isEnrolled) this.playAnimation();
+            console.log("M:"+this.isEnrolled());
+            if(this.isEnrolled()) this.playAnimation();
         },
         update(){
-            console.log("U:"+this.isEnrolled);
-            if(this.isEnrolled) this.playAnimation();
+            console.log("U:"+this.isEnrolled());
+            if(this.isEnrolled()) this.playAnimation();
             else this.resetAnimation();
         },
         data() {
@@ -78,9 +78,12 @@
                 this.anim.reset();
             },
             enrollCourse() {
-                if(this.isEnrolled) return;
+                if(this.isEnrolled()) return;
                 this.$emit("enroll", this.course.id);
                 this.playAnimation();
+            },
+            isEnrolled(){
+                return this.enrolledCourses.map(x => x.course.id).indexOf(this.course.id) !== -1;
             },
         }
     }

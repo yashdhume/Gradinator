@@ -4,7 +4,7 @@
         <div v-for="i in this.courses" :key="i">
             <CourseCard
                     :course="i"
-                    :is-enrolled="isEnrolled(i)"
+                    :enrolled-courses.sync="enrolledCourses"
                     :can-enroll="isSignedIn()"
                     @enroll="enroll"/>
         </div>
@@ -49,9 +49,6 @@
                         this.enrolledCourses = res.courses;
                     }
                 });
-            },
-            isEnrolled(course){
-                return this.enrolledCourses.map(x => x.course.id).indexOf(course.id) !== -1;
             },
             isSignedIn: function(){
                 return this.token.tokenId !== undefined;
