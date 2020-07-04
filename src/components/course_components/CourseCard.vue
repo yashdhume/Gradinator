@@ -17,7 +17,7 @@
                         <DataWithTitleOnBottom :topData="course.code" title="Course Code"/>
                         <GroupedAvatars :images="images"/>
                     </v-row>
-                    <div @click="enrollCourse()" v-if="canEnroll">
+                    <div @click="enrollCourse" v-if="canEnroll">
                         <lottie
                                 v-on:animCreated="handleAnimation"
                                 style="max-height: 50px"
@@ -36,6 +36,7 @@
     import GroupedAvatars from "../miscellaneous/GroupedAvatars";
     import EnrollAnimation from "../../assets/animations/EnrollAnimation";
     import Lottie from "vue-lottie";
+    import {EventBus} from "../../store/eventBus";
 
     export default {
         name: "CourseCard",
@@ -78,6 +79,8 @@
                 this.anim.reset();
             },
             enrollCourse() {
+                console.log("WTFFFFFFFFFFFFFF");
+                EventBus.$emit("openLogin");
                 if(this.isEnrolled()) return;
                 this.$emit("enroll", this.course.id);
                 this.playAnimation();

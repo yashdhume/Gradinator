@@ -13,10 +13,9 @@
                 <span slot="off">Constant</span>
             </vs-switch>
             <div style="padding: 10px"/>
-            <v-btn v-if="!this.$store.state.token.tokenId" @click.stop="openLogin">
-                <Login @closeLogin="closeLogin" :is-active.sync="isLoginActive"/>Login
-            </v-btn>
-            <v-btn v-else  @click.stop="logout">Logout</v-btn>
+            <v-btn v-if="!this.$store.state.token.tokenId" @click.stop="openLogin">Login</v-btn>
+            <v-btn v-else @click.stop="logout">Logout</v-btn>
+            <Login/>
         </v-app-bar>
     </header>
 
@@ -27,9 +26,14 @@
     import Lottie from "vue-lottie";
     import FullLogo from "../assets/animations/FullLogo";
     import Login from "../components/popups/Login";
+    import {EventBus} from "../store/eventBus";
+
     export default {
         name: "AppBar",
         components: {Lottie, Login},
+        updated() {
+            EventBus.$emit("openLogin");
+        },
         methods: {
             activeDrawer() {
                 this.$store.commit('IS_DRAWER_ACTIVE', true);
@@ -38,14 +42,8 @@
                 this.$store.commit('SET_TOKEN', {})
             },
             openLogin(){
-                console.log("opening");
-                this.isLoginActive = true;
-            },
-        },
-        events: {
-            closeLogin(){
-                console.log("closing");
-                this.isLoginActive = false;
+                console.log("EMIT???????");
+                EventBus.$emit("openLogin");
             }
         },
 

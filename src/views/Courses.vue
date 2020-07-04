@@ -15,11 +15,15 @@
 
 <script>
     import GroupedCourseCard from "../components/course_components/GroupedCoursesCard";
+    import {EventBus} from "../store/eventBus";
     export default {
         name: "Courses",
         components: {GroupedCourseCard},
         data: () => ({
         }),
+        created() {
+            EventBus.$emit("openLogin");
+        }
     }
 </script>
 

@@ -14,17 +14,21 @@
 <script>
     import axios from "axios";
     import {site} from "../../store/store"
+    import {EventBus} from "../../store/eventBus";
 
     export default {
         name: "Login",
-        props: {
-            isActive: Boolean,
-        },
         data(){
             return {
+                isActive: false,
                 username: '',
                 password: '',
             }
+        },
+        created(){
+            console.log("DO I EXIST?");
+            EventBus.$on("openLogin", ()=>{ console.log("INNNNNNNN"); this.isActive = true; });
+            EventBus.$on("closeLogin", ()=>{ console.log("CLOSERZZZZZZ"); this.isActive = false; console.log(this.isActive);});
         },
         methods: {
             sendLogin(){
@@ -43,7 +47,7 @@
                         this.password= '';
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'});
                         console.log("triggered");
-                        this.$emit("closeLogin");
+                        EventBus.$emit("closeLogin");
                     }
                 })
 

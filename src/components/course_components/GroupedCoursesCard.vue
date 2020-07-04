@@ -15,6 +15,7 @@
     import CourseCard from "./CourseCard";
     import {enrollCourse, getCourses, getEnrolledCourses} from "../../api/api";
     import {mapState} from "vuex";
+    import {EventBus} from "../../store/eventBus";
 
     export default {
         computed: {
@@ -36,6 +37,7 @@
         },
         methods: {
             enroll: function(courseId){
+                EventBus.$emit('openLogin');
                 enrollCourse(courseId, this.$store.state.token).then(res => {
                     if (res.error) {
                         this.$vs.notify({title: 'Error', text: res.error, color: 'danger', position: 'top-right'})

@@ -25,6 +25,7 @@
 <script>
     import Lottie from "vue-lottie";
     import MiniLogo from "../assets/animations/MiniLogo";
+    import {EventBus} from "../store/eventBus";
     export default {
         name: "Drawer",
         components: {Lottie},
@@ -34,12 +35,19 @@
                 required: true,
             },
         },
+        methods: {
+            openLogin(){
+                console.log("??");
+                EventBus.$emit("openLogin");
+            }
+        },
         computed: {
             isDrawerActive: {
                 get() {
                     return this.$store.state.isDrawerOpen;
                 },
                 set(val) {
+                    this.openLogin();
                     this.$store.commit('IS_DRAWER_ACTIVE', val)
                 }
             }
@@ -49,9 +57,6 @@
             logoOptions: {animationData: MiniLogo, loop: false},
 
         }),
-        methods: {
-
-        }
     }
 </script>
 
