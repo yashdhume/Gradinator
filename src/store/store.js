@@ -4,6 +4,7 @@ import axios from "axios";
 import Vuesax from 'vuesax'
 import createPersistedState from "vuex-persistedstate";
 import SecureLS from "secure-ls";
+import {EventBus} from "./eventBus";
 
 const ls = new SecureLS({isCompression: false});
 
@@ -36,13 +37,12 @@ export const store = new Vuex.Store({
                     .then(r => resolve(r.data));
             })
         },
-        Login({commit, dispatch}, value) {
+        Login({commit}, value) {
             return new Promise((resolve) => {
                 axios
                     .post(site + `user/signIn?username=${value.username}&password=${value.password}`)
                     .then(r => {
                         commit('SET_TOKEN', r.data.token);
-                        dispatch('loadEnrolledCourses');
                         resolve(r.data);
                     });
             });
@@ -69,6 +69,7 @@ export const store = new Vuex.Store({
         },
         SET_TOKEN(state, value) {
             state.token = value;
+            EventBus.$emit("userChange");
         },
         SET_ENROLLED_COURSES(state, value){
             state.enrolledCourses = value;

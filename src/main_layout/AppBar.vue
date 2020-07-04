@@ -18,8 +18,6 @@
             <Login/>
         </v-app-bar>
     </header>
-
-
 </template>
 
 <script>
@@ -31,9 +29,6 @@
     export default {
         name: "AppBar",
         components: {Lottie, Login},
-        updated() {
-            EventBus.$emit("openLogin");
-        },
         methods: {
             activeDrawer() {
                 this.$store.commit('IS_DRAWER_ACTIVE', true);
@@ -42,7 +37,6 @@
                 this.$store.commit('SET_TOKEN', {})
             },
             openLogin(){
-                console.log("EMIT???????");
                 EventBus.$emit("openLogin");
             }
         },

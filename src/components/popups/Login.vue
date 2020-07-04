@@ -12,8 +12,6 @@
 </template>
 
 <script>
-    import axios from "axios";
-    import {site} from "../../store/store"
     import {EventBus} from "../../store/eventBus";
 
     export default {
@@ -26,18 +24,11 @@
             }
         },
         created(){
-            console.log("DO I EXIST?");
-            EventBus.$on("openLogin", ()=>{ console.log("INNNNNNNN"); this.isActive = true; });
-            EventBus.$on("closeLogin", ()=>{ console.log("CLOSERZZZZZZ"); this.isActive = false; console.log(this.isActive);});
+            EventBus.$on("openLogin", ()=>{ this.isActive = true; });
+            EventBus.$on("closeLogin", ()=>{ this.isActive = false; });
         },
         methods: {
             sendLogin(){
-                axios
-                    .post(site + `user/signIn?username=${this.username}&password=${this.password}`)
-                    .then(r => {
-                        console.log(r.data);
-                    });
-
                 this.$store.dispatch('Login', {username: this.username, password: this.password}).then((response)=>{
                     if (response.error){
                         this.$vs.notify({title:'Error',text:response.error,color:'danger',position:'top-right'})
@@ -46,8 +37,7 @@
                         this.username= '';
                         this.password= '';
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'});
-                        console.log("triggered");
-                        EventBus.$emit("closeLogin");
+                        this.isActive = false;
                     }
                 })
 

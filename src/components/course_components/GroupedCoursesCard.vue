@@ -3,9 +3,8 @@
             vs-justify="space-around" vs-type="flex">
         <div v-for="i in this.courses" :key="i">
             <CourseCard
-                    :course="i"
-                    :enrolled-courses.sync="enrolledCourses"
-                    :can-enroll="isSignedIn()"
+                    :course.sync="i"
+                    :is-enrolled="isEnrolled(i)"
                     @enroll="enroll"/>
         </div>
     </vs-row>
@@ -14,43 +13,52 @@
 <script>
     import CourseCard from "./CourseCard";
     import {enrollCourse, getCourses, getEnrolledCourses} from "../../api/api";
-    import {mapState} from "vuex";
     import {EventBus} from "../../store/eventBus";
+    import {mapState} from "vuex";
 
     export default {
-        computed: {
-            ...mapState([
-                'token',
-            ])
-        },
         data(){
             return {
                 courses: [],
                 enrolledCourses: [],
             }
         },
+        computed: mapState([
+            'token'
+        ]),
         created() {
-            getCourses().then(x => { this.courses = x.courses; });
-            getEnrolledCourses(this.$store.state.token).then(x => {
-                if(!x.error){ this.enrolledCourses = x.courses; }
-            });
+            this.reload();
+            EventBus.$on("userChange", this.reload);
         },
         methods: {
-            enroll: function(courseId){
-                EventBus.$emit('openLogin');
-                enrollCourse(courseId, this.$store.state.token).then(res => {
-                    if (res.error) {
-                        this.$vs.notify({title: 'Error', text: res.error, color: 'danger', position: 'top-right'})
-                    } else {
-                        this.$vs.notify({
-                            title: 'Success',
-                            text: "Class is enrolled",
-                            color: 'success',
-                            position: 'top-right'
-                        });
-                        this.enrolledCourses = res.courses;
-                    }
+            reload: function(){
+                getEnrolledCourses(this.token).then(x => {
+                    this.enrolledCourses = x.error ? [] : x.courses;
+                    getCourses().then(x => { this.courses = x.courses; });
                 });
+            },
+            enroll: function(courseId){
+                if(this.isSignedIn()){
+                    enrollCourse(courseId, this.token).then(res => {
+                        if (res.error) {
+                            this.$vs.notify({title: 'Error', text: res.error, color: 'danger', position: 'top-right'})
+                        } else {
+                            this.$vs.notify({
+                                title: 'Success',
+                                text: "Class is enrolled",
+                                color: 'success',
+                                position: 'top-right'
+                            });
+                            this.enrolledCourses = res.courses;
+                        }
+                    });
+                }
+                else{
+                    EventBus.$emit("openLogin");
+                }
+            },
+            isEnrolled: function(course){
+                return this.enrolledCourses.map(x => x.course.id).indexOf(course.id) !== -1;
             },
             isSignedIn: function(){
                 return this.token.tokenId !== undefined;

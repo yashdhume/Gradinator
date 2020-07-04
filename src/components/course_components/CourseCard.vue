@@ -17,7 +17,7 @@
                         <DataWithTitleOnBottom :topData="course.code" title="Course Code"/>
                         <GroupedAvatars :images="images"/>
                     </v-row>
-                    <div @click="enrollCourse" v-if="canEnroll">
+                    <div @click="enrollCourse">
                         <lottie
                                 v-on:animCreated="handleAnimation"
                                 style="max-height: 50px"
@@ -36,23 +36,19 @@
     import GroupedAvatars from "../miscellaneous/GroupedAvatars";
     import EnrollAnimation from "../../assets/animations/EnrollAnimation";
     import Lottie from "vue-lottie";
-    import {EventBus} from "../../store/eventBus";
 
     export default {
         name: "CourseCard",
         components: {GroupedAvatars, DataWithTitleOnBottom, Lottie},
         props: {
             course: Object,
-            canEnroll: Boolean,
-            enrolledCourses: [],
+            isEnrolled: Boolean,
         },
         mounted(){
-            console.log("M:"+this.isEnrolled());
-            if(this.isEnrolled()) this.playAnimation();
+            if(this.isEnrolled) this.playAnimation();
         },
         update(){
-            console.log("U:"+this.isEnrolled());
-            if(this.isEnrolled()) this.playAnimation();
+            if(this.isEnrolled) this.playAnimation();
             else this.resetAnimation();
         },
         data() {
@@ -79,14 +75,7 @@
                 this.anim.reset();
             },
             enrollCourse() {
-                console.log("WTFFFFFFFFFFFFFF");
-                EventBus.$emit("openLogin");
-                if(this.isEnrolled()) return;
                 this.$emit("enroll", this.course.id);
-                this.playAnimation();
-            },
-            isEnrolled(){
-                return this.enrolledCourses.map(x => x.course.id).indexOf(this.course.id) !== -1;
             },
         }
     }

@@ -16,9 +16,8 @@ export async function getCourses(){
 }
 
 export async function enrollCourse(courseId, token) {
-    return (await fetch(site + "/gradebook/enroll",{
-        headers: { ...token },
-        body: {courseId: courseId },
+    return (await fetch(site + "/gradebook/enroll?courseId="+courseId,{
+        headers: { ...token,},
         method: "POST"
     })).json();
 }
