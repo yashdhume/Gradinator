@@ -154,16 +154,14 @@
                         this.postCreateCourse();
                         if(this.courseResponse.error){
                             this.$vs.notify({title:'Error',text:this.courseResponse.error,color:'danger',position:'top-right'})
-                            this.$router.push({name: "Courses"})
                         }
                         else{
                             this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
-
+                            this.$route.push({name: "Courses"})
+                            return true;
                         }
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
+                    } else return false;
+
                 });
             },
             getApiCalls(){
