@@ -13,11 +13,12 @@ import VueSplit from 'vue-split-panel';
 import FormWizard from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(FormWizard)
 Vue.use(VueSplit);
 Vue.use(vuesax);
-Vue.use(ElementUI);
+Vue.use(ElementUI, {locale});
 Vue.config.productionTip = false;
 new Vue({
     router,

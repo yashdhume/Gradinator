@@ -5,7 +5,7 @@
                     vs-justify="center" vs-type="flex" style="flex-direction: column">
                 <vs-input icon="account_circle" style="padding-top: 20px; padding-bottom: 20px" placeholder="Username" v-model="username"/>
                 <vs-input @keyup.enter="sendLogin" icon="vpn_key" type="password" style="padding-bottom: 20px" placeholder="Password" v-model="password"/>
-                <vs-button type="line" @click="sendLogin">Login</vs-button>
+                <vs-button type="line" style="outline: none; " @click="sendLogin">Login</vs-button>
             </vs-col>
         </vs-popup>
     </div>
