@@ -30,7 +30,7 @@
                 {currentGrade: 0.45, minimumGrade: 0.35, maximumGrade: 0.52}]
         }),
         mounted() {
-            this.$store.dispatch('getEnrolledCourses')
+            this.$store.dispatch('loadEnrolledCourses')
         },
         computed:{
             ...mapState([
