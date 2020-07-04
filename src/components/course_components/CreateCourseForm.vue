@@ -23,7 +23,7 @@
         <el-form-item>
             <el-col :span="12">
                 <el-form-item label="Major" prop="majorId" >
-                    <el-select v-model="ruleForm.majorId" placeholder="Ontario Tech University">
+                    <el-select v-model="ruleForm.majorId" placeholder="Computer Science">
                         <el-option label="Computer Science" value="Computer Science"/>
                         <el-option label="Science" value="Science"/>
                         <el-option label="Engineering" value="Engineering"/>
@@ -32,7 +32,7 @@
             </el-col>
             <el-col :span="12">
                 <el-form-item label="University" prop="universityId">
-                    <el-select v-model="ruleForm.universityId" placeholder="Computer Science">
+                    <el-select v-model="ruleForm.universityId" placeholder="Ontario Tech University">
                         <el-option label="Ontario Tech University" value="Ontario Tech University"/>
                         <el-option label="Waterloo" value="Waterloo"/>
                         <el-option label="University of Toronto" value="University of Toronto"/>
