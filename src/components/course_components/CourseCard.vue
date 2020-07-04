@@ -76,6 +76,7 @@
             },
             enrollCourse() {
                 this.$emit("enroll", this.course.id);
+                this.playAnimation();
             },
         }
     }
