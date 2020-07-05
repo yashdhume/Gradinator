@@ -5,7 +5,9 @@
                 <v-col align="center" justify="center" style="flex-direction: column; padding-bottom: 1px">
                     <v-row class="text-center justify-content-around" align="center" style="padding: 10px">
                         <vs-chip :color="course.major.color">{{course.major.name}}</vs-chip>
-                        <vs-chip color="success">{{course.semester}} {{course.year}}</vs-chip>
+                        <vs-chip  :color="colorIcon(course.semester).color">
+                            <vs-avatar :icon="colorIcon(course.semester).icon" :color="colorIcon(course.semester).color"/>{{course.semester}} {{course.year}}
+                        </vs-chip>
                         <h6>🔥 {{course.likeCount}}</h6>
                     </v-row>
                     <div style="padding: 10px"/>
@@ -78,6 +80,11 @@
                 this.$emit("enroll", this.course.id);
                 this.playAnimation();
             },
+            colorIcon(semester){
+                if(semester==="WINTER") return{"icon": "ac_unit", "color":  "#A0E6FF"}
+                else if(semester==="SUMMER") return {"icon": "wb_sunny", "color": "#FF598F"}
+                else if(semester==="FALL") return{"icon": "eco", "color": "#FF7326"}
+            }
         }
     }
 </script>
