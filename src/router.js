@@ -31,7 +31,7 @@ export default new Router({
                     path: '/create_course',
                     name: 'CreateCourse',
                     index: 4,
-                    component: ()=> import('./views/CreateCoursePage')
+                    component: ()=> import('./components/course_components/CreateCoursePage')
                 }
             ],
         },

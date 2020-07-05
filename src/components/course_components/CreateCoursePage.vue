@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import CreateCourseForm from "../components/course_components/CreateCourseForm";
+    import CreateCourseForm from "./CreateCourseForm";
     export default {
         name: "CreateCoursePage",
         components: {CreateCourseForm}
