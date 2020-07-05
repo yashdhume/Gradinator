@@ -71,16 +71,6 @@
     import {getUniversities, getMajors, createCourse} from "../../api/api";
     export default {
         name: "CreateCourseForm",
-        computed:{
-            isCreatePopupOpen: {
-                get() {
-                    return this.$store.state.isCreatePopupOpen;
-                },
-                set(val) {
-                    this.$store.commit('IS_CREATE_POPUP_ACTIVE', val)
-                }
-            }
-        },
         mounted() {
           this.getApiCalls()
         },
@@ -157,7 +147,8 @@
                         }
                         else{
                             this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
-                            this.$route.push({name: "Courses"})
+                            console.log("As")
+                            this.$router.push({name: "Courses"})
                             return true;
                         }
                     } else return false;
