@@ -1,17 +1,11 @@
 <template>
-    <vs-row vs-justify="center">
-        <vs-col type="flex" vs-justify="center" vs-align="center" vs-lg="12" vs-xs="12">
-            <vs-collapse>
-                    <div v-for="i in this.endpointGroups" :key="i">
-                        <vs-collapse-item>
-                            <div slot="header">{{i.name}}</div>
-                            <GroupedEndpoints v-bind:endpoints="i.endpoints"></GroupedEndpoints>
-                        </vs-collapse-item>
-                    </div>
-
-            </vs-collapse>
-        </vs-col>
-    </vs-row>
+    <el-collapse v-model="activeNames" accordion style="padding: 2rem">
+            <div v-for="(i, index) in this.endpointGroups" :key="i">
+                <el-collapse-item :title="i.name" :name="index">
+                    <GroupedEndpoints v-bind:endpoints="i.endpoints"/>
+                </el-collapse-item>
+            </div>
+    </el-collapse>
 </template>
 
 <script>
@@ -30,11 +24,11 @@
         data(){
             return{
                 endpointGroups: Array,
+                activeNames: ['1']
             }
         }
     }
 </script>
 
 <style scoped>
-
 </style>
