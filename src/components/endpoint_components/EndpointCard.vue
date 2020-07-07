@@ -52,23 +52,46 @@
                     </vs-list>
                 </SplitArea>
             </Split>
+
         </vs-col>
+
         <div slot="footer">
             <vs-row vs-justify="flex-end">
-
             </vs-row>
         </div>
-
+        <vs-collapse>
+            <vs-collapse-item not-arrow>
+                <div slot="header">
+                    Example Output
+                </div>
+                <div>
+                    <vue-json-pretty
+                            showLength
+                            collapsedOnClickBrackets
+                            showLine
+                            customValueFormatter
+                            highlightMouseoverNode
+                            :data="fakeData"
+                    >
+                    </vue-json-pretty>
+                </div>
+            </vs-collapse-item>
+        </vs-collapse>
     </vs-card>
 </div>
 </template>
 
 <script>
+    import VueJsonPretty from 'vue-json-pretty'
     export default {
         name: "EndpointCard",
+        components: {VueJsonPretty},
         props: {
             endpoint: Array
-        }
+        },
+        data: ()=>({
+          fakeData: {"universities":[{"id":"5efd685e1ae51752bef8e98a","name":"Ontario Tech University","logoUrl":"https://pbs.twimg.com/profile_images/1110951821579829253/weqEaAsM_400x400.png"},{"id":"5efd685e1ae51752bef8e98b","name":"University of Toronto","logoUrl":"https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Utoronto_coa.svg/1200px-Utoronto_coa.svg.png"},{"id":"5efd685e1ae51752bef8e98c","name":"University of Waterloo","logoUrl":"https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/University_of_Waterloo_seal.svg/1200px-University_of_Waterloo_seal.svg.png"}]}
+        })
     }
 </script>
 
