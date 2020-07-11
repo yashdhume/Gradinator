@@ -32,6 +32,12 @@ export default new Router({
                     name: 'CreateCourse',
                     index: 4,
                     component: ()=> import('./components/course_components/CreateCoursePage')
+                },
+                {
+                    path: '/tabletemp',
+                    name: 'Table',
+                    index: 5,
+                    component: ()=> import('./views/TableTemp')
                 }
             ],
         },
