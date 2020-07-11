@@ -59,38 +59,31 @@
             <vs-row vs-justify="flex-end">
             </vs-row>
         </div>
-        <vs-collapse>
-            <vs-collapse-item not-arrow>
-                <div slot="header">
-                    Example Output
-                </div>
-                <div>
-                    <vue-json-pretty
-                            showLength
-                            collapsedOnClickBrackets
-                            showLine
-                            customValueFormatter
-                            highlightMouseoverNode
-                            :data="fakeData"
-                    >
-                    </vue-json-pretty>
-                </div>
-            </vs-collapse-item>
-        </vs-collapse>
+        <div>
+            <Split>
+                <SplitArea :size="50" v-if="endpoint.sampleOutputs[0]">
+                    <GroupedExampleOutputs title="Example Success Output" :data="endpoint.sampleOutputs[0]" color="rgb(23, 201, 100)"/>
+                </SplitArea>
+                <SplitArea :size="50" v-if="endpoint.sampleOutputs[1]">
+                    <GroupedExampleOutputs title="Example Error Output" :data="endpoint.sampleOutputs[1]" color="rgb(242, 19, 93)"/>
+                </SplitArea>
+            </Split>
+        </div>
+        <div style="padding: 10px"/>
     </vs-card>
 </div>
 </template>
 
 <script>
-    import VueJsonPretty from 'vue-json-pretty'
+    import GroupedExampleOutputs from "./GroupedExampleOutputs";
     export default {
         name: "EndpointCard",
-        components: {VueJsonPretty},
+        components: {GroupedExampleOutputs},
         props: {
             endpoint: Array
         },
         data: ()=>({
-          fakeData: {"universities":[{"id":"5efd685e1ae51752bef8e98a","name":"Ontario Tech University","logoUrl":"https://pbs.twimg.com/profile_images/1110951821579829253/weqEaAsM_400x400.png"},{"id":"5efd685e1ae51752bef8e98b","name":"University of Toronto","logoUrl":"https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Utoronto_coa.svg/1200px-Utoronto_coa.svg.png"},{"id":"5efd685e1ae51752bef8e98c","name":"University of Waterloo","logoUrl":"https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/University_of_Waterloo_seal.svg/1200px-University_of_Waterloo_seal.svg.png"}]}
+
         })
     }
 </script>
