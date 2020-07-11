@@ -15,6 +15,9 @@ import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
+import Vodal from 'vodal';
+
+Vue.component(Vodal.name, Vodal);
 Vue.use(FormWizard)
 Vue.use(VueSplit);
 Vue.use(vuesax);
