@@ -15,7 +15,7 @@
 
 <script>
 
-    import BarChartData from "../../../ui_data/GradeSummaryBarGraphData";
+    import BarChartData from "./data/GradeSummaryBarGraphData";
     export default {
         name: "GradeSummaryLineGraphCard",
         components: {BarChartData}

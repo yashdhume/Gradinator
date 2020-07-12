@@ -11,7 +11,7 @@
 <script>
     import AppBar from "./AppBar";
     import Drawer from "./Drawer";
-    import drawerLinks from '../ui_data/DrawerLinks';
+    import drawerLinks from './DrawerLinks';
 
     export default {
         name: "Index",

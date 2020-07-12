@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import GradeSummaryLineGraphData from "../../../ui_data/GradeSummaryLineGraphData";
+    import GradeSummaryLineGraphData from "./data/GradeSummaryLineGraphData";
 
     export default {
         name: "GradeSummaryBarGraphCard",
