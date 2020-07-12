@@ -38,6 +38,7 @@
                         this.password= '';
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'});
                         this.isActive = false;
+                        location.reload()
                     }
                 })
 
