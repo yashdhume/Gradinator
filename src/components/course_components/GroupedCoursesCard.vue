@@ -1,6 +1,19 @@
 <template>
     <div>
-        <vs-input icon="search" placeholder="Search" v-model="searchValue" :data-lpignore="true" style="display: block; margin-left: auto; margin-right: auto"/>
+        <vs-row vs-align="center" vs-justify="center">
+            <vs-input icon="search" :placeholder="'Search by ' +  this.filterType" v-model="searchValue" :data-lpignore="true"/>
+            <div style="padding: 2px;"/>
+            <el-dropdown @command="onCommandDropdown">
+                <el-button>
+                    <i class="el-icon-arrow-down el-icon--right"></i>
+                </el-button>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-for="i in this.keys" :key="i" :command="i">
+                        Search by {{i}}
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </vs-row>
         <div style="padding: 1rem;"/>
         <vs-row vs-align="center"
                 vs-justify="space-around" vs-type="flex">
@@ -23,6 +36,8 @@
         data(){
             return {
                 searchValue: "",
+                keys: [],
+                filterType: "name",
                 courses: [],
                 enrolledCourses: [],
             }
@@ -35,22 +50,33 @@
             EventBus.$on("userChange", this.reload);
         },
         methods: {
+            onCommandDropdown(val) {
+                this.searchValue="";
+                this.filterType=val;
+            },
             filterBySearch(){
               return this.courses.filter(e=>{
-                  console.log(e);
-                  return e.name.toLowerCase().includes(this.searchValue.toLowerCase());
+                  if(this.filterType==="major") return e.major.name.toLowerCase().includes(this.searchValue.toLowerCase());
+                  else if(this.filterType==="year")return e.year = (parseInt(this.searchValue));
+                  return e[this.filterType].toLowerCase().includes(this.searchValue.toLowerCase());
               })
             },
-            filterByMajor(major){
-              return this.courses.filter(e=>{
-                  console.log(e);
-                  return e.major.name = major;
-              })
+            getKeys(){
+                this.keys=[]
+                for(const i in this.courses[0]) this.keys.push(i);
+                for(const i of ['id', 'assessments', 'enrolled', 'enrolledCount', 'university', 'likeCount']){
+                    const index = this.keys.findIndex(item => item === i);
+                    if(index !== -1)
+                        this.keys.splice(index, 1);
+                }
             },
             reload: function(){
                 getEnrolledCourses(this.token).then(x => {
                     this.enrolledCourses = x.error ? [] : x.courses;
-                    getCourses().then(x => { this.courses = x.courses; });
+                    getCourses().then(x => {
+                        this.courses = x.courses;
+                        this.getKeys();
+                    });
                 });
             },
             enroll: function(courseId){
