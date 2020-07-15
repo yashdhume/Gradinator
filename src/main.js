@@ -16,7 +16,8 @@ import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 import 'element-ui/lib/theme-chalk/index.css';
 import VModal from 'vue-js-modal'
-
+import Vue2Filters from 'vue2-filters'
+Vue.use(Vue2Filters)
 Vue.use(VModal)
 Vue.use(FormWizard)
 Vue.use(VueSplit);

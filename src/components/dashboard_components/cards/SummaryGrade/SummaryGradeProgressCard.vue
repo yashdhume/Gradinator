@@ -1,45 +1,50 @@
 <template>
-    <vs-card actionable style="width: 500px">
-        <div slot="header">
-            <vs-row vs-justify="space-around">
-                <h5 class="mb-1">{{headerText}}</h5>
-                <vs-spacer/>
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-icon v-bind="attrs"
-                                v-on="on">info
-                        </v-icon>
-                    </template>
-                    <span>Hover over for details (Tap on mobile)</span>
-                </v-tooltip>
-            </vs-row>
-        </div>
-        <div>
-            <span style="display: block">{{prof+ " " +  roomNumber}}</span>
-            <span v-if="grade.currentGrade">{{(grade.currentGrade*100).toFixed(2) + "%"}}</span>
-            <span v-else style="color:red;font-weight:bold">No Grade Data</span>
-        </div>
-        <div v-if="grade.currentGrade">
-            <GradeProgressBarDynamicColor v-if="isDynamicActivated" :grade="grade"/>
-            <GradeProgressBarConstantColor v-if="!isDynamicActivated" :grade="grade"/>
-        </div>
+    <div>
+        <DetailedCourse :name="index"/>
+        <vs-card actionable style="width: 500px">
+            <div slot="header" >
+                <vs-row vs-justify="space-around">
+                    <h5 class="mb-1" @click="$modal.show(index)">{{headerText}}</h5>
+                    <vs-spacer/>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-icon v-bind="attrs"
+                                    v-on="on">info
+                            </v-icon>
+                        </template>
+                        <span>Hover over for details (Tap on mobile)</span>
+                    </v-tooltip>
+                </vs-row>
+            </div>
+            <div @click="$modal.show(index)">
+                <span style="display: block">{{prof+ " " +  roomNumber}}</span>
+                <span v-if="grade.currentGrade">{{(grade.currentGrade*100).toFixed(2) + "%"}}</span>
+                <span v-else style="color:red;font-weight:bold">No Grade Data</span>
+            </div>
+            <div v-if="grade.currentGrade">
+                <GradeProgressBarDynamicColor v-if="isDynamicActivated" :grade="grade"/>
+                <GradeProgressBarConstantColor v-if="!isDynamicActivated" :grade="grade"/>
+            </div>
 
-        <div v-else style="height: 20px"/>
-    </vs-card>
+            <div v-else style="height: 20px"/>
+        </vs-card>
+    </div>
 </template>
 
 <script>
     import GradeProgressBarDynamicColor from "./GradeProgressBarDynamicColor";
     import GradeProgressBarConstantColor from "./GradeProgressBarConstantColor";
+    import DetailedCourse from "./DetailedCourse/DetailedCourse";
     export default {
         name: "SummaryGradeProgressCard",
-        components: {GradeProgressBarConstantColor, GradeProgressBarDynamicColor},
+        components: {DetailedCourse, GradeProgressBarConstantColor, GradeProgressBarDynamicColor},
         props: {
             prof: String,
             grade: Array,
             headerText: String,
             roomNumber: String,
             color: String,
+            index: String,
         },
         data: () => ({
         }),
@@ -54,8 +59,3 @@
 
     }
 </script>
-<style>
-
-
-</style>
-
