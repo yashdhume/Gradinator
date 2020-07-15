@@ -1,13 +1,17 @@
 <template>
-    <vs-row vs-align="center"
-            vs-justify="space-around" vs-type="flex">
-        <div v-for="i in this.courses" :key="i">
-            <CourseCard
-                    :course.sync="i"
-                    :is-enrolled="isEnrolled(i)"
-                    @enroll="enroll"/>
-        </div>
-    </vs-row>
+    <div>
+        <vs-input icon="search" placeholder="Search" v-model="searchValue" :data-lpignore="true" style="display: block; margin-left: auto; margin-right: auto"/>
+        <div style="padding: 1rem;"/>
+        <vs-row vs-align="center"
+                vs-justify="space-around" vs-type="flex">
+            <div v-for="i in filterBySearch()" :key="i">
+                <CourseCard
+                        :course.sync="i"
+                        :is-enrolled="isEnrolled(i)"
+                        @enroll="enroll"/>
+            </div>
+        </vs-row>
+    </div>
 </template>
 
 <script>
@@ -15,10 +19,10 @@
     import {enrollCourse, getCourses, getEnrolledCourses} from "../../api/api";
     import {EventBus} from "../../store/eventBus";
     import {mapState} from "vuex";
-
     export default {
         data(){
             return {
+                searchValue: "",
                 courses: [],
                 enrolledCourses: [],
             }
@@ -31,6 +35,18 @@
             EventBus.$on("userChange", this.reload);
         },
         methods: {
+            filterBySearch(){
+              return this.courses.filter(e=>{
+                  console.log(e);
+                  return e.name.toLowerCase().includes(this.searchValue.toLowerCase());
+              })
+            },
+            filterByMajor(major){
+              return this.courses.filter(e=>{
+                  console.log(e);
+                  return e.major.name = major;
+              })
+            },
             reload: function(){
                 getEnrolledCourses(this.token).then(x => {
                     this.enrolledCourses = x.error ? [] : x.courses;
