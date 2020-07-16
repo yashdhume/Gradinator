@@ -51,8 +51,9 @@
         },
         methods: {
             onCommandDropdown(val) {
-                this.searchValue="";
                 this.filterType=val;
+                if(this.filterType==="year") this.searchValue=new Date().getFullYear();
+                else this.searchValue="";
             },
             filterBySearch(){
               return this.courses.filter(e=>{
