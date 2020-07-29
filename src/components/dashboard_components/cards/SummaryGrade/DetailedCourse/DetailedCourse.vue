@@ -1,17 +1,17 @@
 <template>
     <modal :name="name" height="auto" :scrollable="true">
         <v-card style="padding: 1rem">
-            <h2>Into to Phyc</h2>
+            <h2>{{courseName}}</h2>
             <v-divider/>
             <v-container>
                 <v-row>
                     <v-col>
-                        <DataWithTitleOnBottom title="Proffessor" top-data="Some Prof"/>
-                        <DataWithTitleOnBottom title="Room Number" top-data="UA1234"/>
+                        <DataWithTitleOnBottom title="Professor" :top-data="professor"/>
+                        <DataWithTitleOnBottom title="Room Number" :top-data="roomNumber"/>
                     </v-col>
                     <v-col>
-                        <DataWithTitleOnBottom title="Course Code" top-data="PHYC 1000U" />
-                        <DataWithTitleOnBottom title="CRN" top-data="456798"/>
+                        <DataWithTitleOnBottom title="Course Code" :top-data="courseCode" />
+                        <DataWithTitleOnBottom title="CRN" :top-data="crn"/>
                     </v-col>
                 </v-row>
             </v-container>
@@ -42,6 +42,11 @@
         components: {DataWithTitleOnBottom, CourseBreakDownTable},
         props:{
             name: String,
+            professor: String,
+            roomNumber: String,
+            courseCode: String,
+            crn: String,
+            courseName: String,
         },
         data:()=>{
             return{

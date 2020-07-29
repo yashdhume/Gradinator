@@ -7,8 +7,10 @@
                         v-bind:index="'index'+index"
                         v-bind:prof="item.course.professor"
                         v-bind:roomNumber="item.course.room"
+                        v-bind:courseCode="item.course.code"
                         v-bind:color="item.course.color"
                         v-bind:header-text="item.course.name"
+                        v-bind:crn="item.course.crn"
                         v-bind:grade="dummyGrades[index]"
                 />
             </vs-col>

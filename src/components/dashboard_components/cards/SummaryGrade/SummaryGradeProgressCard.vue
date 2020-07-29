@@ -1,6 +1,6 @@
 <template>
     <div>
-        <DetailedCourse :name="index"/>
+        <DetailedCourse :name="index" :course-code="courseCode" :room-number="roomNumber" :course-name="headerText" :professor="prof" :crn="crn"/>
         <vs-card actionable style="width: 500px">
             <div slot="header" >
                 <vs-row vs-justify="space-around">
@@ -45,6 +45,8 @@
             roomNumber: String,
             color: String,
             index: String,
+            courseCode: String,
+            crn: String,
         },
         data: () => ({
         }),
