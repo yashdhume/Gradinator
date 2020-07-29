@@ -56,20 +56,19 @@
         </vs-col>
 
         <div slot="footer">
-            <vs-row vs-justify="flex-end">
-            </vs-row>
+            <vs-row/>
         </div>
         <div>
             <Split>
-                <SplitArea :size="50" v-if="endpoint.sampleOutputs[0]">
-                    <GroupedExampleOutputs title="Example Success Output" :data="endpoint.sampleOutputs[0]" color="rgb(23, 201, 100)"/>
+                <SplitArea :size="50" v-if="endpoint.sampleOutputs.successOutputs">
+                    <GroupedExampleOutputs title="Example Success Output" :data="endpoint.sampleOutputs.successOutputs" sub-title="Success" color="rgb(23, 201, 100)"/>
                 </SplitArea>
-                <SplitArea :size="50" v-if="endpoint.sampleOutputs[1]">
-                    <GroupedExampleOutputs title="Example Error Output" :data="endpoint.sampleOutputs[1]" color="rgb(242, 19, 93)"/>
+                <SplitArea :size="50" v-if="endpoint.sampleOutputs.errorOutputs">
+                    <GroupedExampleOutputs title="Example Error Output" :data="endpoint.sampleOutputs.errorOutputs" sub-title="Error" color="rgb(242, 19, 93)"/>
                 </SplitArea>
             </Split>
         </div>
-        <div style="padding: 10px"/>
+        <div style="padding: 1.5rem"/>
     </vs-card>
 </div>
 </template>
