@@ -18,7 +18,7 @@
 
 <script>
     import SummaryGradeProgressCard from "./SummaryGradeProgressCard";
-    import {getEnrolledCourses} from "../../../../api/api";
+    import {getGradebookCourses} from "../../../../api/api";
     import {mapState} from "vuex";
 
     export default {
@@ -42,7 +42,7 @@
         }),
         methods: {
             reload: function(){
-                getEnrolledCourses(this.token).then(r=> this.enrolledCourses = r)
+                getGradebookCourses(this.token).then(r=> this.enrolledCourses = r)
                 console.log(this.enrolledCourses)
             }
         },

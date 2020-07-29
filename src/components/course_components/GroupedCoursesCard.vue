@@ -29,7 +29,7 @@
 
 <script>
     import CourseCard from "./CourseCard";
-    import {enrollCourse, getCourses, getEnrolledCourses} from "../../api/api";
+    import {enrollCourse, getCourses, getGradebookCourses} from "../../api/api";
     import {EventBus} from "../../store/eventBus";
     import {mapState} from "vuex";
     export default {
@@ -72,7 +72,7 @@
                 }
             },
             reload: function(){
-                getEnrolledCourses(this.token).then(x => {
+                getGradebookCourses(this.token).then(x => {
                     this.enrolledCourses = x.error ? [] : x.courses;
                     getCourses().then(x => {
                         this.courses = x.courses;

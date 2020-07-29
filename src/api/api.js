@@ -25,7 +25,7 @@ export async function createCourse(courseData) {
 }
 
 //gradebook
-export async function getEnrolledCourses(token){
+export async function getGradebookCourses(token){
     return (await fetch(site + "/gradebook", {
        headers: { ...token },
     })).json();
