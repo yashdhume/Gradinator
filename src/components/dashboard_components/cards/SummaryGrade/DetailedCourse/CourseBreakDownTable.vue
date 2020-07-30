@@ -1,5 +1,4 @@
 <template>
-    <div>
     <vs-table stripe :data="assessments">
         <template slot="header">
             <h3>
@@ -8,7 +7,7 @@
         </template>
         <template slot="thead">
             <vs-th>
-                Assesment
+                Assessment
             </vs-th>
             <vs-th>
                 Weight
@@ -38,7 +37,7 @@
                     <template slot="edit">
                         <span style="width: 500px; padding-top: 25px; padding-bottom: 0px">
                             <v-slider
-                                    v-model="i.Weight"
+                                    v-model="i.weight"
                                     :thumb-size="24"
                                     thumb-label
                             ></v-slider>
@@ -56,21 +55,21 @@
                         <VueCtkDateTimePicker v-model="fakeDate" noHeader overlay inline style="padding-top: 3rem"/>
                     </template>
                 </vs-td>
-                <vs-td :data="i.isCompleted">
-                    {{i.isCompleted}}
+                <vs-td @click.native="i.isCompleted" :data="i.isCompleted">
+                    <vs-checkbox color="success" v-model="i.isCompleted"/>
                 </vs-td>
             </vs-tr>
         </template>
     </vs-table>
-    </div>
 </template>
 
 <script>
     export default {
         name: "CourseBreakDownTable",
+        components:{},
         props:{
-          assessments: Array,
-            fakeDate: new Date()
+            assessments: Array,
+            fakeDate: new Date(),
         },
     }
 </script>
