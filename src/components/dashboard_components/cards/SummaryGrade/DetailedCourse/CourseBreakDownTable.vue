@@ -50,22 +50,10 @@
                     {{i.grade*100}}
                 </vs-td>
 
-                <vs-td :data="i.assessment.dueDate">
-                    {{new Date(i.assessment.dueDate/1000)}} {{i.dueTime}}
+                <vs-td :data="fakeDate">
+                    {{fakeDate}}
                     <template slot="edit">
-                        <div>
-                            <el-date-picker
-                                    v-model="i.assessment.dueDate/1000"
-                                    format="MM/dd/yyyy"
-                                    value-format="MM/dd/yyyy"
-                            />
-                            <el-time-picker
-                                    v-model="i.DueTime"
-                                    format="hh:mm A"
-                                    value-format="hh:mm A"
-                                    placeholder="11:59 PM"
-                            />
-                        </div>
+                        <VueCtkDateTimePicker v-model="fakeDate" noHeader overlay inline style="padding-top: 3rem"/>
                     </template>
                 </vs-td>
                 <vs-td :data="i.isCompleted">
@@ -82,6 +70,7 @@
         name: "CourseBreakDownTable",
         props:{
           assessments: Array,
+            fakeDate: new Date()
         },
     }
 </script>
