@@ -50,7 +50,7 @@
                 </vs-td>
 
                 <vs-td :data="fakeDate">
-                    {{fakeDate}}
+                    {{fakeDate.toDateString() + " " + fakeDate.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}}
                     <template slot="edit">
                         <VueCtkDateTimePicker v-model="fakeDate" noHeader overlay inline style="padding-top: 3rem"/>
                     </template>
@@ -69,7 +69,12 @@
         components:{},
         props:{
             assessments: Array,
-            fakeDate: new Date(),
+
         },
+        data:()=> {
+            return {
+                fakeDate: new Date(),
+            }
+        }
     }
 </script>
