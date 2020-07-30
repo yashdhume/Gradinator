@@ -4,6 +4,7 @@
         <div :key="item" v-for="(item,index) in this.enrolledCourses.courses">
             <vs-col>
                 <SummaryGradeProgressCard
+                        v-bind:id="item.course.id"
                         v-bind:index="'index'+index"
                         v-bind:prof="item.course.professor"
                         v-bind:roomNumber="item.course.room"

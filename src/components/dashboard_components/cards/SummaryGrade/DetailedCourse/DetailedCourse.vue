@@ -29,7 +29,7 @@
                     :label-size="7"
             ></v-sparkline>
             <v-divider/>
-            <CourseBreakDownTable/>
+            <CourseBreakDownTable :assessments="assessmentGrades.grades"/>
         </v-card>
     </modal>
 </template>
@@ -37,8 +37,13 @@
 <script>
     import CourseBreakDownTable from "./CourseBreakDownTable";
     import DataWithTitleOnBottom from "../../../../miscellaneous/DataWithTitleOnBottom";
+    import {getGradebookCourseData} from "../../../../../api/api";
+    import {mapState} from "vuex";
     export default {
         name: "DetailedCourse",
+        computed: mapState([
+            'token'
+        ]),
         components: {DataWithTitleOnBottom, CourseBreakDownTable},
         props:{
             name: String,
@@ -47,12 +52,22 @@
             courseCode: String,
             crn: String,
             courseName: String,
+            id: String,
+        },
+        mounted() {
+            this.reload();
         },
         data:()=>{
             return{
                 value: [0, 50, 40, 30, 20, 50, 100, 98, 72, 34, 10, 91, 52, 100,65],
+                assessmentGrades: []
             }
-        }
+        },
+        methods: {
+            reload: function(){
+                getGradebookCourseData(this.id, this.token).then(r=> {this.assessmentGrades = r; console.log(r)})
+            }
+        },
     }
 </script>
 

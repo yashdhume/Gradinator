@@ -30,6 +30,11 @@ export async function getGradebookCourses(token){
        headers: { ...token },
     })).json();
 }
+export async function getGradebookCourseData(courseId, token){
+    return (await fetch(site + "/gradebook/course?courseId="+courseId, {
+        headers: { ...token },
+    })).json();
+}
 
 //majors
 export async function getMajors(){

@@ -1,6 +1,6 @@
 <template>
     <div>
-    <vs-table stripe :data="Assessments">
+    <vs-table stripe :data="assessments">
         <template slot="header">
             <h3>
                 Assessments
@@ -26,15 +26,15 @@
 
         <template slot-scope="{data}">
             <vs-tr :key="i" v-for="i in data" >
-                <vs-td :data="i.name">
-                    {{i.name}}
+                <vs-td :data="i.assessment.name">
+                    {{i.assessment.name}}
                     <template slot="edit">
                             <vs-input v-model="i.name" :placeholder="i.name"/>
                     </template>
                 </vs-td>
 
-                <vs-td :data="i.Weight">
-                    {{i.Weight}}%
+                <vs-td :data="i.assessment.weight">
+                    {{i.assessment.weight*100}}%
                     <template slot="edit">
                         <span style="width: 500px; padding-top: 25px; padding-bottom: 0px">
                             <v-slider
@@ -46,16 +46,16 @@
                     </template>
                 </vs-td>
 
-                <vs-td :data="i.CurrentGrade">
-                    {{i.CurrentGrade}}
+                <vs-td :data="i.grade">
+                    {{i.grade*100}}
                 </vs-td>
 
-                <vs-td :data="i.DueDate">
-                    {{i.DueDate}} {{i.DueTime}}
+                <vs-td :data="i.assessment.dueDate">
+                    {{new Date(i.assessment.dueDate/1000)}} {{i.dueTime}}
                     <template slot="edit">
                         <div>
                             <el-date-picker
-                                    v-model="i.DueDate"
+                                    v-model="i.assessment.dueDate/1000"
                                     format="MM/dd/yyyy"
                                     value-format="MM/dd/yyyy"
                             />
@@ -80,64 +80,8 @@
 <script>
     export default {
         name: "CourseBreakDownTable",
-        data:()=>({
-            Assessments:[
-                {
-                    "id": 1,
-                    "name": "Assignment1",
-                    "Weight": 20,
-                    "CurrentGrade": "No Grade Recorded",
-                    "DueDate": "07/20/2020",
-                    "DueTime": "11:59 PM",
-                    "isCompleted": "nAH"
-                },
-                {
-                    "id": 2,
-                    "name": "Assignment2",
-                    "Weight": 20,
-                    "CurrentGrade": "No Grade Recorded",
-                    "DueDate": "07/20/2020",
-                    "DueTime": "11:59 PM",
-                    "isCompleted": "nAH"
-                },
-                {
-                    "id": 3,
-                    "name": "Assignment3",
-                    "Weight": 20,
-                    "CurrentGrade": "No Grade Recorded",
-                    "DueDate": "07/20/2020",
-                    "DueTime": "11:59 PM",
-                    "isCompleted": "nAH"
-                },
-                {
-                    "id": 5,
-                    "name": "Midterm",
-                    "Weight": 20,
-                    "CurrentGrade": "No Grade Recorded",
-                    "DueDate": "07/20/2020",
-                    "DueTime": "11:59 PM",
-                    "isCompleted": "nAH"
-                },
-                {
-                    "id": 5,
-                    "name": "Lab",
-                    "Weight": 20,
-                    "CurrentGrade": "No Grade Recorded",
-                    "DueDate": "2020-07-21",
-                    "DueTime": "11:59 PM",
-                    "isCompleted": "nAH"
-                },
-                {
-                    "id": 6,
-                    "name": "Exam",
-                    "Weight": 20,
-                    "CurrentGrade": "No Grade Recorded",
-                    "DueDate": "07/20/2020",
-                    "DueTime": "11:59 PM",
-                    "isCompleted": "nAH"
-                },
-
-            ]
-        })
+        props:{
+          assessments: Array,
+        },
     }
 </script>
