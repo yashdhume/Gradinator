@@ -35,6 +35,13 @@ export async function getGradebookCourseData(courseId, token){
         headers: { ...token },
     })).json();
 }
+export async function submitGradebook(assessmentId, changeData, token) {
+    return (await fetch(site + "/gradebook/course/editGrade?assessmentId="+assessmentId+"&"+$.param(changeData), {
+        headers: { ...token },
+        method: "POST"
+    })).json();
+
+}
 
 //majors
 export async function getMajors(){

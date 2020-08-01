@@ -1,79 +1,86 @@
 <template>
-    <vs-table stripe :data="assessments">
-        <template slot="header">
-            <h3>
-                Assessments
-            </h3>
-        </template>
-        <template slot="thead">
-            <vs-th>
-                Assessment
-            </vs-th>
-            <vs-th>
-                Weight
-            </vs-th>
-            <vs-th>
-                CurrentGrade
-            </vs-th>
-            <vs-th>
-                Due Date
-            </vs-th>
-            <vs-th>
-                isCompleted
-            </vs-th>
-        </template>
+    <div>
+        <vs-table stripe :data="assessments">
+            <template slot="header">
+                <h3>
+                    Assessments
+                </h3>
+                <vs-spacer/>
+            </template>
+            <template slot="thead">
+                <vs-th>
+                    Assessment
+                </vs-th>
+                <vs-th>
+                    Weight
+                </vs-th>
+                <vs-th>
+                    CurrentGrade
+                </vs-th>
+                <vs-th>
+                    Due Date
+                </vs-th>
+                <vs-th>
+                    isCompleted
+                </vs-th>
+            </template>
 
-        <template slot-scope="{data}">
-            <vs-tr :key="i" v-for="i in data" >
-                <vs-td :data="i.assessment.name">
-                    {{i.assessment.name}}
-                    <template slot="edit">
-                            <vs-input v-model="i.name" :placeholder="i.name"/>
-                    </template>
-                </vs-td>
-
-                <vs-td :data="i.assessment.weight">
-                    {{i.assessment.weight*100}}%
-                    <template slot="edit">
-                        <span style="width: 500px; padding-top: 25px; padding-bottom: 0px">
+            <template slot-scope="{data}">
+                <vs-tr :key="i" v-for="i in data" >
+                    <vs-td :data="i.assessment.name">
+                        {{i.assessment.name}}
+                    </vs-td>
+                    <vs-td :data="i.assessment.weight">
+                        {{i.assessment.weight*100}}%
+                    </vs-td>
+                    <vs-td :data="i.grade">
+                        {{i.grade}}
+                        <div slot="edit"  style="width: 500px; padding-top: 25px; padding-bottom: 0px">
                             <v-slider
-                                    v-model="i.weight"
+                                    v-model="i.grade"
                                     :thumb-size="24"
                                     thumb-label
                             ></v-slider>
-                        </span>
-                    </template>
-                </vs-td>
+                            <vs-button @click="submitGrade(i.grade,i.assessment.id)" color="success" type="flat" icon="send" style="">Submit</vs-button>
+                        </div>
+                    </vs-td>
 
-                <vs-td :data="i.grade">
-                    {{i.grade*100}}
-                </vs-td>
-
-                <vs-td :data="fakeDate">
-                    {{fakeDate.toDateString() + " " + fakeDate.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}}
-                    <template slot="edit">
-                        <VueCtkDateTimePicker v-model="fakeDate" noHeader overlay inline style="padding-top: 3rem"/>
-                    </template>
-                </vs-td>
-                <vs-td @click.native="i.isCompleted" :data="i.isCompleted">
-                    <vs-checkbox color="success" v-model="i.isCompleted"/>
-                </vs-td>
-            </vs-tr>
-        </template>
-    </vs-table>
+                    <vs-td :data="fakeDate">
+                        {{fakeDate.toDateString() + " " + fakeDate.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'})}}
+                    </vs-td>
+                    <vs-td @click.native="i.isCompleted" :data="i.isCompleted">
+                        <vs-checkbox @click.native="submitCompletion(!i.isCompleted, i.assessment.id)" color="success" v-model="i.isCompleted"/>
+                    </vs-td>
+                </vs-tr>
+            </template>
+        </vs-table>
+    </div>
 </template>
 
 <script>
+    import {submitGradebook} from "../../../../../api/api";
+    import {mapState} from "vuex";
+
     export default {
         name: "CourseBreakDownTable",
         components:{},
         props:{
             assessments: Array,
-
         },
+        computed: mapState([
+            'token'
+        ]),
         data:()=> {
             return {
                 fakeDate: new Date(),
+            }
+        },
+        methods:{
+            submitGrade: function(grade, assessmentId){
+                submitGradebook(assessmentId,{"grade": grade/100}, this.token);
+            },
+            submitCompletion: function (isComplete, assessmentId) {
+                submitGradebook(assessmentId,{"isCompleted": isComplete}, this.token);
             }
         }
     }
