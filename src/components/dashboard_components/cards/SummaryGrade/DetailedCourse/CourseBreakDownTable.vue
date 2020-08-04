@@ -34,7 +34,7 @@
                         {{i.assessment.weight*100}}%
                     </vs-td>
                     <vs-td :data="grades">
-                        {{grades[index]? parseNumber(grades[index]): ""}}
+                        {{grades[index]? parseNumber(grades[index]): "No Grade"}}
                         <div slot="edit"  style="width: 500px; padding-top: 25px; padding-bottom: 0px;">
                             <v-container>
                                 <v-row>
@@ -51,7 +51,11 @@
                                     </vs-button>
                                 </div>
                                 </v-row>
+
                             </v-container>
+                            <v-col class="text-right">
+                            <DoubleClickToDelete v-model="grades[index]" :assessment-id="i.assessment.id" :token="token"/>
+                            </v-col>
                         </div>
                     </vs-td>
 
@@ -71,10 +75,11 @@
     import {submitGradebook} from "../../../../../api/api";
     import {mapState} from "vuex";
     import SliderTextBoxCombo from "./SliderTextBoxCombo";
+    import DoubleClickToDelete from "./DoubleClickToDelete";
 
     export default {
         name: "CourseBreakDownTable",
-        components:{SliderTextBoxCombo},
+        components:{DoubleClickToDelete, SliderTextBoxCombo},
         props:{
             assessments: Array,
             grades: Array,
