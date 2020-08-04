@@ -1,11 +1,11 @@
 <template>
     <div>
         <DetailedCourse :name="index" :id="id" :course-code="courseCode" :room-number="roomNumber" :course-name="headerText" :professor="prof" :crn="crn"/>
-        <vs-card actionable style="width: 500px">
+        <vs-card fixed-height actionable style="width: 500px">
             <div slot="header" >
                 <vs-row vs-justify="space-around">
                     <h5 class="mb-1" @click="$modal.show(index)">{{headerText}}</h5>
-                    <vs-spacer/>
+                    <v-spacer @click="$modal.show(index)"/>
                     <v-tooltip bottom>
                         <template v-slot:activator="{ on, attrs }">
                             <v-icon v-bind="attrs"
@@ -18,15 +18,16 @@
             </div>
             <div @click="$modal.show(index)">
                 <span style="display: block">{{prof+ " " +  roomNumber}}</span>
-                <span v-if="grade.currentGrade">{{(grade.currentGrade*100).toFixed(2) + "%"}}</span>
-                <span v-else style="color:red;font-weight:bold">No Grade Data</span>
+
             </div>
-            <div v-if="grade.currentGrade">
+            <div @click="$modal.show(index)" v-if="(grade.minimumGrade>=grade.maximumGrade)&&grade.currentGrade" :style='"height:29px; color:"+getColor(grade.currentGrade)+";font-weight:bold"'>
+                You have completed the course with {{(grade.currentGrade*100).toFixed(2)}}%
+            </div>
+            <div v-else-if="grade.currentGrade">
                 <GradeProgressBarDynamicColor v-if="isDynamicActivated" :grade="grade"/>
                 <GradeProgressBarConstantColor v-if="!isDynamicActivated" :grade="grade"/>
             </div>
-
-            <div v-else style="height: 20px"/>
+            <div @click="$modal.show(index)" v-else style="height: 29px;color:red;font-weight:bold">No Grade Data</div>
         </vs-card>
     </div>
 </template>
@@ -48,6 +49,11 @@
             courseCode: String,
             crn: String,
             id: String,
+        },
+        methods:{
+            getColor(value){
+                return ["hsl(", ((1 - value) * 120).toString(10), ",100%,45%)"].join("");
+            }
         },
         data: () => ({
         }),
