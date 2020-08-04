@@ -140,19 +140,8 @@
         methods:{
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        this.postCreateCourse();
-                        if(this.courseResponse.error){
-                            this.$vs.notify({title:'Error',text:this.courseResponse.error,color:'danger',position:'top-right'})
-                        }
-                        else{
-                            this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
-                            console.log("As")
-                            this.$router.push({name: "Courses"})
-                            return true;
-                        }
-                    } else return false;
-
+                    if (valid) this.postCreateCourse();
+                    else return false;
                 });
             },
             getApiCalls(){
@@ -160,7 +149,16 @@
                 getUniversities().then(r=>this.universities=r.universities)
             },
             postCreateCourse(){
-                createCourse(this.ruleForm).then(r=>this.courseResponse=r)
+                createCourse(this.ruleForm).then(r=>{
+                    if(r.error){
+                        this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
+                    }
+                    else{
+                        this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
+                        this.$router.push({name: "Courses"})
+                        return true;
+                    }
+                })
             }
 
         }
