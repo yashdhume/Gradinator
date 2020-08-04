@@ -12,7 +12,8 @@
                                     v-on="on">info
                             </v-icon>
                         </template>
-                        <span>Hover over for details (Tap on mobile)</span>
+                        <span v-if="grade.currentGrade">Hover over bar for details (Tap on mobile). Click anywhere for Course Details and Assessments.</span>
+                        <span v-else>Click anywhere for Course Details and Assessments.</span>
                     </v-tooltip>
                 </vs-row>
             </div>
