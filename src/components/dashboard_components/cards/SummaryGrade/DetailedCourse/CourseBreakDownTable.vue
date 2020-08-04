@@ -34,7 +34,7 @@
                         {{i.assessment.weight*100}}%
                     </vs-td>
                     <vs-td :data="i.grade">
-                        {{parseNumber(i.grade)}}%
+                        {{i.grade? parseNumber(i.grade): ""}}
                         <div slot="edit"  style="width: 500px; padding-top: 25px; padding-bottom: 0px;">
                             <v-container>
 
@@ -96,13 +96,13 @@
             },
             parseNumber:(number)=> {
                 if(number<0.1){
-                    return (number*100).toPrecision(2);
+                    return (number*100).toPrecision(2)+"%";
                 }
                 else if(number===1){
-                    return 100;
+                    return 100+"%";
                 }
                 else{
-                    return (number*100).toPrecision(4);
+                    return (number*100).toPrecision(4)+"%";
                 }
             }
         }
