@@ -34,14 +34,25 @@
                         {{i.assessment.weight*100}}%
                     </vs-td>
                     <vs-td :data="i.grade">
-                        {{i.grade}}
-                        <div slot="edit"  style="width: 500px; padding-top: 25px; padding-bottom: 0px">
-                            <v-slider
-                                    v-model="i.grade"
-                                    :thumb-size="24"
-                                    thumb-label
-                            ></v-slider>
-                            <vs-button @click="submitGrade(i.grade,i.assessment.id)" color="success" type="flat" icon="send" style="">Submit</vs-button>
+                        {{parseNumber(i.grade)}}%
+                        <div slot="edit"  style="width: 500px; padding-top: 25px; padding-bottom: 0px;">
+                            <v-container>
+
+                                <v-row>
+                                    <SliderTextBoxCombo v-model="i.grade"/>
+                                <div>
+
+                                    <vs-button
+                                            @click="submitGrade(i.grade,i.assessment.id)"
+                                            color="success"
+                                            type="flat"
+                                            icon="send"
+                                    >
+                                        Submit
+                                    </vs-button>
+                                </div>
+                                </v-row>
+                            </v-container>
                         </div>
                     </vs-td>
 
@@ -60,10 +71,11 @@
 <script>
     import {submitGradebook} from "../../../../../api/api";
     import {mapState} from "vuex";
+    import SliderTextBoxCombo from "./SliderTextBoxCombo";
 
     export default {
         name: "CourseBreakDownTable",
-        components:{},
+        components:{SliderTextBoxCombo},
         props:{
             assessments: Array,
         },
@@ -77,10 +89,21 @@
         },
         methods:{
             submitGrade: function(grade, assessmentId){
-                submitGradebook(assessmentId,{"grade": grade/100}, this.token);
+                submitGradebook(assessmentId,{"grade": grade}, this.token);
             },
             submitCompletion: function (isComplete, assessmentId) {
                 submitGradebook(assessmentId,{"isCompleted": isComplete}, this.token);
+            },
+            parseNumber:(number)=> {
+                if(number<0.1){
+                    return (number*100).toPrecision(2);
+                }
+                else if(number===1){
+                    return 100;
+                }
+                else{
+                    return (number*100).toPrecision(4);
+                }
             }
         }
     }
