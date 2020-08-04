@@ -16,7 +16,7 @@
                 </v-row>
             </v-container>
             <v-sparkline
-                    :value="value"
+                    :value="this.grades"
                     :gradient="['purple', 'violet']"
                     :smooth="10"
                     :padding="8"
@@ -60,7 +60,7 @@
         },
         data:()=>{
             return{
-                value: [0, 50, 40, 30, 20, 50, 100, 98, 72, 34, 10, 91, 52, 100,65],
+                grades: [],
                 assessmentGrades: []
             }
         },
@@ -68,8 +68,11 @@
             update: function(){
                 EventBus.$emit('reloadSummaryCourse');
             },
+            getAllGrades: function(){
+                this.grades = this.assessmentGrades.gradedAssessments.map(val => parseFloat((val.grade*100).toPrecision(4)))
+            },
             reload: function(){
-                getGradebookCourseData(this.id, this.token).then(r=> {this.assessmentGrades = r; console.log(r)})
+                getGradebookCourseData(this.id, this.token).then(r=> {this.assessmentGrades = r;this.getAllGrades()})
             }
         },
     }
