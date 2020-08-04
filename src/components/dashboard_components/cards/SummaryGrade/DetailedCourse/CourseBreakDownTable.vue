@@ -89,10 +89,26 @@
         },
         methods:{
             submitGrade: function(grade, assessmentId){
-                submitGradebook(assessmentId,{"grade": grade}, this.token);
+                submitGradebook(assessmentId,{"grade": grade}, this.token).then(r=>{
+                    if(r.error){
+                        this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
+                    }
+                    else{
+                        this.$vs.notify({title:'Success',text:"Grade Sent Successfully",color:'success',position:'top-right'})
+                        return true;
+                    }
+                });
             },
             submitCompletion: function (isComplete, assessmentId) {
-                submitGradebook(assessmentId,{"isCompleted": isComplete}, this.token);
+                submitGradebook(assessmentId,{"isCompleted": isComplete}, this.token).then(r=>{
+                    if(r.error){
+                        this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
+                    }
+                    else{
+                        this.$vs.notify({title:'Success',text:"Is Completed Sent Successfully",color:'success',position:'top-right'})
+                        return true;
+                    }
+                });
             },
             parseNumber:(number)=> {
                 if(number<0.1){
