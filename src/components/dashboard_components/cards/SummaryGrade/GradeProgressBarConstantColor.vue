@@ -13,7 +13,7 @@
         <b-progress-bar v-b-tooltip.hover.bottom="`You can potentially get ${(grade.minimumGrade*100).toFixed(2)}% - ${(grade.maximumGrade*100).toFixed(2)}%`"
                         :value="((grade.maximumGrade-grade.currentGrade)*100)" variant="warning"/>
         <b-progress-bar
-                v-b-tooltip.hover.bottom="`The highest mark you can get is ${(grade.maximumGrade*100).toFixed(0)}% in this course`"
+                v-b-tooltip.hover.bottom="`The highest mark you can get is ${(grade.maximumGrade*100).toFixed(2)}% in this course`"
                 :value="(1-grade.maximumGrade)*100" variant="danger">{{(grade.maximumGrade*100).toFixed(0)}}%
         </b-progress-bar>
     </b-progress>
