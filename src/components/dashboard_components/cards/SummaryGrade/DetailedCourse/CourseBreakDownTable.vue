@@ -54,7 +54,7 @@
 
                             </v-container>
                             <v-col class="text-right">
-                            <DoubleClickToDelete v-model="grades[index]" :assessment-id="i.assessment.id" :token="token"/>
+                                <DoubleClickToDelete v-model="grades[index]" :assessment-id="i.assessment.id" :token="token"/>
                             </v-col>
                         </div>
                     </vs-td>

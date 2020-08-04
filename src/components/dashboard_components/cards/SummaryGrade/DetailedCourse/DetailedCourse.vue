@@ -16,7 +16,7 @@
                 </v-row>
             </v-container>
             <v-sparkline
-                    :value="this.getGraphGrades()"
+                    :value="this.grades.filter(Boolean)"
                     :gradient="['purple', 'violet']"
                     :smooth="10"
                     :padding="8"
@@ -67,10 +67,6 @@
         methods: {
             update: function(){
                 EventBus.$emit('reloadSummaryCourse');
-            },
-            getGraphGrades: function(){
-                console.log(this.grades.filter(Boolean))
-                return this.grades.filter(Boolean);
             },
             getAllGrades: function(){
                 this.grades = this.assessmentGrades.gradedAssessments.map(val => parseFloat((val.grade*100).toPrecision(4)))
