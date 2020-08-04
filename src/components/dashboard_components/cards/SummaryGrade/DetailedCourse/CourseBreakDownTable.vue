@@ -26,24 +26,23 @@
             </template>
 
             <template slot-scope="{data}">
-                <vs-tr :key="i" v-for="i in data" >
+                <vs-tr :key="i" v-for="(i,index)  in data" >
                     <vs-td :data="i.assessment.name">
                         {{i.assessment.name}}
                     </vs-td>
                     <vs-td :data="i.assessment.weight">
                         {{i.assessment.weight*100}}%
                     </vs-td>
-                    <vs-td :data="i.grade">
-                        {{i.grade? parseNumber(i.grade): ""}}
+                    <vs-td :data="grades">
+                        {{grades[index]? parseNumber(grades[index]): ""}}
                         <div slot="edit"  style="width: 500px; padding-top: 25px; padding-bottom: 0px;">
                             <v-container>
-
                                 <v-row>
-                                    <SliderTextBoxCombo v-model="i.grade"/>
+                                    <SliderTextBoxCombo v-model="grades[index]"/>
                                 <div>
 
                                     <vs-button
-                                            @click="submitGrade(i.grade,i.assessment.id)"
+                                            @click="submitGrade(grades[index],i.assessment.id)"
                                             color="success"
                                             type="flat"
                                             icon="send"
@@ -78,6 +77,7 @@
         components:{SliderTextBoxCombo},
         props:{
             assessments: Array,
+            grades: Array,
         },
         computed: mapState([
             'token'
@@ -89,7 +89,7 @@
         },
         methods:{
             submitGrade: function(grade, assessmentId){
-                submitGradebook(assessmentId,{"grade": grade}, this.token).then(r=>{
+                submitGradebook(assessmentId,{"grade": grade/100}, this.token).then(r=>{
                     if(r.error){
                         this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
                     }
@@ -112,13 +112,13 @@
             },
             parseNumber:(number)=> {
                 if(number<0.1){
-                    return (number*100).toPrecision(2)+"%";
+                    return (number).toPrecision(2)+"%";
                 }
                 else if(number===1){
                     return 100+"%";
                 }
                 else{
-                    return (number*100).toPrecision(4)+"%";
+                    return (number).toPrecision(4)+"%";
                 }
             }
         }

@@ -1,9 +1,7 @@
 <template>
     <v-row>
     <v-slider
-            min="0.0"
-            max="1.0"
-            :step="0.0001"
+            :step="0.01"
             v-model="number"
             thumb-label
             style="padding-top: 4px; padding-left: 1rem"
@@ -37,13 +35,13 @@
             },
             parseNumber:(number)=> {
                 if(number<0.1){
-                    return (number*100).toPrecision(2);
+                    return (number).toPrecision(2);
                 }
                 else if(number===1){
                     return 100;
                 }
                 else{
-                    return (number*100).toPrecision(4);
+                    return (number).toPrecision(4);
                 }
             }
         }

@@ -29,7 +29,7 @@
                     :label-size="7"
             ></v-sparkline>
             <v-divider/>
-            <CourseBreakDownTable :assessments="assessmentGrades.gradedAssessments"/>
+            <CourseBreakDownTable :assessments="assessmentGrades.gradedAssessments" :grades="this.grades"/>
         </v-card>
     </modal>
 </template>
