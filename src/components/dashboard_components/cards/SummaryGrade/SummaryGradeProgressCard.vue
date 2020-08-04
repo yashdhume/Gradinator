@@ -53,7 +53,7 @@
         },
         methods:{
             getColor(value){
-                return ["hsl(", ((1 - value) * 120).toString(10), ",100%,45%)"].join("");
+                return ["hsl(", (value * 120).toString(10), ",100%,45%)"].join("");
             }
         },
         data: () => ({
