@@ -12,7 +12,7 @@
                         v-bind:color="item.course.color"
                         v-bind:header-text="item.course.name"
                         v-bind:crn="item.course.crn"
-                        v-bind:grade="dummyGrades[index]"
+                        v-bind:grade="item.gradeReport"
                 />
             </vs-col>
         </div>
@@ -35,13 +35,6 @@
         },
         data: () => ({
             enrolledCourses: [],
-            dummyGrades:[{currentGrade: 0.75, minimumGrade: 0.6, maximumGrade: 0.87},
-                {currentGrade: 0.35, minimumGrade: 0.2, maximumGrade: 0.64},
-                {currentGrade: 0.80, minimumGrade: 0.75, maximumGrade: 0.96},
-                {currentGrade: 0.45, minimumGrade: 0.35, maximumGrade: 0.52},
-                {currentGrade: 0.35, minimumGrade: 0.2, maximumGrade: 0.64},
-                {currentGrade: 0.80, minimumGrade: 0.75, maximumGrade: 0.96},
-                {currentGrade: 0.45, minimumGrade: 0.35, maximumGrade: 0.52}]
         }),
         methods: {
             reload: function(){
