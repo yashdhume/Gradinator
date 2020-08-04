@@ -1,5 +1,5 @@
 <template>
-    <modal :name="name" height="auto" :scrollable="true">
+    <modal :name="name" height="auto" :scrollable="true" @before-open="reload" @before-close="update">
         <v-card style="padding: 1rem">
             <h2>{{courseName}}</h2>
             <v-divider/>
@@ -39,6 +39,8 @@
     import DataWithTitleOnBottom from "../../../../miscellaneous/DataWithTitleOnBottom";
     import {getGradebookCourseData} from "../../../../../api/api";
     import {mapState} from "vuex";
+
+    import {EventBus} from "../../../../../store/eventBus";
     export default {
         name: "DetailedCourse",
         computed: mapState([
@@ -54,8 +56,7 @@
             courseName: String,
             id: String,
         },
-        mounted() {
-            this.reload();
+        created() {
         },
         data:()=>{
             return{
@@ -64,6 +65,9 @@
             }
         },
         methods: {
+            update: function(){
+                EventBus.$emit('reloadSummaryCourse');
+            },
             reload: function(){
                 getGradebookCourseData(this.id, this.token).then(r=> {this.assessmentGrades = r; console.log(r)})
             }

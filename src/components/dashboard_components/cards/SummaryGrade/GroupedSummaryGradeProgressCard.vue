@@ -23,6 +23,7 @@
     import SummaryGradeProgressCard from "./SummaryGradeProgressCard";
     import {getGradebookCourses} from "../../../../api/api";
     import {mapState} from "vuex";
+    import {EventBus} from "../../../../store/eventBus";
 
     export default {
         name: "GroupedSummaryGradeProgressCard",
@@ -36,10 +37,12 @@
         data: () => ({
             enrolledCourses: [],
         }),
+        created() {
+            EventBus.$on("reloadSummaryCourse", ()=>{ this.reload(); console.log("EMIT")});
+        },
         methods: {
             reload: function(){
-                getGradebookCourses(this.token).then(r=> this.enrolledCourses = r)
-                console.log(this.enrolledCourses)
+                getGradebookCourses(this.token).then(r=> this.enrolledCourses = r);
             }
         },
 
