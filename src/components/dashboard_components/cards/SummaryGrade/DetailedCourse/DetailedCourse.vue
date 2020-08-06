@@ -1,5 +1,5 @@
 <template>
-    <modal :name="name" height="auto" :scrollable="true" @before-open="reload" @before-close="update">
+    <modal adaptive :name="name" height="auto" :scrollable="true" @before-open="reload" @before-close="update">
         <v-card style="padding: 1rem">
             <h2>{{courseName}}</h2>
             <v-divider/>
