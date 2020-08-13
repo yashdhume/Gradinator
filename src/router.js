@@ -32,7 +32,7 @@ export default new Router({
                     path: '/create_course',
                     name: 'CreateCourse',
                     index: 4,
-                    component: ()=> import('./components/course_components/CreateCoursePage')
+                    component: ()=> import('./components/course_components/CreateCourse/CreateCoursePage')
                 },
             ],
         },

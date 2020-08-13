@@ -89,7 +89,7 @@
 </template>
 
 <script>
-    import {getUniversities, getMajors, createCourse} from "../../api/api";
+    import {getUniversities, getMajors, createCourse} from "../../../api/api";
     export default {
         name: "CreateCourseForm",
         mounted() {

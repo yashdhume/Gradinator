@@ -51,9 +51,9 @@
 <script>
     import CreateCourseForm from "./CreateCourseForm";
     import Lottie from "vue-lottie";
-    import PersonalDetails from "../../assets/animations/PersonalDetailsAnimation";
-    import Campus from "../../assets/animations/CampusAnimation";
-    import SendAnimation from "../../assets/animations/SendAnimation";
+    import PersonalDetails from "../../../assets/animations/PersonalDetailsAnimation";
+    import Campus from "../../../assets/animations/CampusAnimation";
+    import SendAnimation from "../../../assets/animations/SendAnimation";
     export default {
         name: "CreateCoursePage",
         components: {
