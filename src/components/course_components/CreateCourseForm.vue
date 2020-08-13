@@ -1,5 +1,5 @@
 <template>
-    <el-form label-position="top" :model="ruleForm" :rules="rules" ref="ruleForm" style="padding: 20px" >
+    <el-form label-position="top" :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
         <el-form-item label="Course Name" prop="name" required>
             <el-input v-model="ruleForm.name"/>
         </el-form-item>
@@ -60,9 +60,30 @@
                 </el-form-item>
             </el-col>
         </el-form-item>
+        <el-form-item required label="Select Days" prop="selectedDays">
+            <el-checkbox-group v-model="ruleForm.selectedDays">
+                <el-checkbox-button  label="Monday" name="selectedDays"/>
+                <el-checkbox-button  label="Tuesday" name="selectedDays"/>
+                <el-checkbox-button  label="Wednesday" name="selectedDays"/>
+                <el-checkbox-button  label="Thursday" name="selectedDays"/>
+                <el-checkbox-button  label="Friday" name="selectedDays"/>
+            </el-checkbox-group>
+        </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-            <el-button @click="$router.push({name: 'Courses'})">Cancel</el-button>
+            <el-col :span="12">
+                <el-row v-for="(i, index) in ruleForm.selectedDays" :key="i" >
+                    <el-form-item  prop="startTimes" required :label="'Start Time for ' + i" style="padding-bottom: 1rem">
+                        <el-time-picker  format="hh:mm A" value-format="HH:mm" placeholder="Select a time" v-model="ruleForm.startTimes[index]"/>
+                    </el-form-item>
+                </el-row>
+            </el-col>
+            <el-col :span="12">
+                <el-row v-for="(i, index) in ruleForm.selectedDays" :key="i" label="End Times">
+                    <el-form-item  prop="endTimes" required :label="'End Time for ' + i" style="padding-bottom: 1rem">
+                        <el-time-picker  format="hh:mm A" value-format="HH:mm" placeholder="Select a time" v-model="ruleForm.endTimes[index]" />
+                    </el-form-item>
+                </el-row>
+            </el-col>
         </el-form-item>
     </el-form>
 </template>
@@ -75,6 +96,17 @@
           this.getApiCalls()
         },
         data() {
+            var validateTimes= (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('Please input time'));
+                }
+                else if (value.length !== this.ruleForm.selectedDays.length) {
+                    callback(new Error('Make sure enter all times'));
+                }
+                else {
+                    callback();
+                }
+            };
             return {
                 universities: [],
                 majors: [],
@@ -88,39 +120,27 @@
                     crn: '',
                     code: '',
                     room: '',
-                    professor: ''
+                    professor: '',
+                    selectedDays: [],
+                    startTimes: [],
+                    endTimes: [],
                 },
+
                 rules: {
                     name: [
                         {required: true, message: 'Please input Course name', trigger: 'blur'},
                     ],
                     semester: [
-                        {
-                            required: true,
-                            message: 'Please select a semester',
-                            trigger: 'blur'
-                        }
+                        {required: true, message: 'Please select a semester', trigger: 'blur'}
                     ],
                     year: [
-                        {
-                            required: true,
-                            message: 'Please pick a year',
-                            trigger: 'blur'
-                        }
+                        {required: true, message: 'Please pick a year', trigger: 'blur'}
                     ],
                     majorId: [
-                        {
-                            required: true,
-                            message: 'Please select a major',
-                            trigger: 'blur'
-                        }
+                        {required: true, message: 'Please select a major', trigger: 'blur'}
                     ],
                     universityId: [
-                        {
-                            required: true,
-                            message: 'Please select a university',
-                            trigger: 'blur'
-                        }
+                        {required: true, message: 'Please select a university', trigger: 'blur'}
                     ],
                     crn: [
                         {required: true, message: 'Please input a CRN', trigger: 'blur'},
@@ -134,16 +154,29 @@
                     professor: [
                         {required: true, message: 'Please input Professor', trigger: 'blur'},
                     ],
+                    selectedDays: [
+                        {type: 'array', required: true, message: 'Please select at least one day', trigger: 'change' }
+                    ],
+                    startTimes: [
+                        {validator: validateTimes, trigger: 'blur' }
+                    ],
+                    endTimes: [
+                        {validator: validateTimes, trigger: 'blur' }
+                    ],
                 }
             };
         },
         methods:{
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) this.postCreateCourse();
-                    else return false;
-                });
+            validate() {
+                return new Promise((resolve) => {
+                    this.$refs.ruleForm.validate((valid) => {
+                        this.$emit('on-validate', valid, this.ruleForm)
+                        resolve(valid);
+                    });
+                })
+
             },
+
             getApiCalls(){
                 getMajors().then(r=>this.majors=r.majors)
                 getUniversities().then(r=>this.universities=r.universities)
