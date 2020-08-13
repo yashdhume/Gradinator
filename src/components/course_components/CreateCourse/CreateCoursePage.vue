@@ -38,7 +38,8 @@
                     <tab-content title="Course Details" icon="" :before-change="() => validate('createForm')">
                         <CreateCourseForm ref="createForm" @on-validate="onStepValidate"/>
                     </tab-content>
-                    <tab-content title="Course Syllabus" icon="">
+                    <tab-content title="Course Syllabus" icon="" :before-change="() => validate('syllabusRuleForm')">
+                        <CreateCourseSyllabus ref="syllabusRuleForm" @on-validate="onStepValidate"/>
                     </tab-content>
                     <tab-content title="Submit" icon="">
                     </tab-content>
@@ -54,9 +55,11 @@
     import PersonalDetails from "../../../assets/animations/PersonalDetailsAnimation";
     import Campus from "../../../assets/animations/CampusAnimation";
     import SendAnimation from "../../../assets/animations/SendAnimation";
+    import CreateCourseSyllabus from "./CreateCourseSyllabus";
     export default {
         name: "CreateCoursePage",
         components: {
+            CreateCourseSyllabus,
             CreateCourseForm,
             Lottie
         },
