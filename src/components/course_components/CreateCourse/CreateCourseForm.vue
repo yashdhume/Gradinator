@@ -89,7 +89,7 @@
 </template>
 
 <script>
-    import {getUniversities, getMajors, createCourse} from "../../../api/api";
+    import {getUniversities, getMajors} from "../../../api/api";
     export default {
         name: "CreateCourseForm",
         mounted() {
@@ -101,7 +101,7 @@
                     callback(new Error('Please input time'));
                 }
                 else if (value.length !== this.ruleForm.selectedDays.length) {
-                    callback(new Error('Make sure enter all times'));
+                    callback(new Error('Make sure you enter all times'));
                 }
                 else {
                     callback();
@@ -158,10 +158,10 @@
                         {type: 'array', required: true, message: 'Please select at least one day', trigger: 'change' }
                     ],
                     startTimes: [
-                        {validator: validateTimes, trigger: 'blur' }
+                        {validator: validateTimes, trigger: 'change' }
                     ],
                     endTimes: [
-                        {validator: validateTimes, trigger: 'blur' }
+                        {validator: validateTimes, trigger: 'change' }
                     ],
                 }
             };
@@ -181,18 +181,6 @@
                 getMajors().then(r=>this.majors=r.majors)
                 getUniversities().then(r=>this.universities=r.universities)
             },
-            postCreateCourse(){
-                createCourse(this.ruleForm).then(r=>{
-                    if(r.error){
-                        this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
-                    }
-                    else{
-                        this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
-                        this.$router.push({name: "Courses"})
-                        return true;
-                    }
-                })
-            }
 
         }
     }

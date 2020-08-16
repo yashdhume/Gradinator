@@ -7,7 +7,7 @@
                         <el-form-item
                                 label="Name"
                                 :prop="'assessments.' + index + '.name'"
-                                :rules="{required: true, message: 'Assessment can not be Empty', trigger: 'blur'}"
+                                :rules="{required: true, message: 'Assessment can not be Empty', trigger: ['blur','change']}"
                         >
                             <el-input v-model="i.name" style="width: 75%"/>
                         </el-form-item>
@@ -15,7 +15,6 @@
                     <el-col :span="12">
                         <el-form-item
                                 label="Weight"
-                                :rules="{required: true, message: 'Weight can not be Empty', trigger: 'blur'}"
                                 style="padding-left: 1rem"
                         >
                             <el-input-number v-model="i.weight" controls-position="right" :min="1" :max="100"/>
@@ -27,7 +26,6 @@
                     <el-col :span="12">
                         <el-form-item
                                 label="Frequency"
-                                :rules="{required: true, message: 'Assessment can not be Empty', trigger: 'blur'}"
                                 style="padding-top: 1rem; "
                         >
                             <el-select v-model="i.frequency" placeholder="Frequency">
@@ -50,7 +48,6 @@
                 <el-row>
                     <el-col :span="9">
                         <el-form-item
-                                :rules="{ type: 'date', required: true, message: 'Please pick a date', trigger: 'change' }"
                                 :label="i.frequency !== 'Once' ? 'Due Date' : 'Start Date'"
                         >
                             <el-date-picker type="date" placeholder="Pick a date" v-model="i.date"
@@ -75,6 +72,7 @@
 <script>
     export default {
         name: 'CreateCourseSyllabus',
+
         data() {
             return {
                 syllabusRuleForm: {
@@ -89,13 +87,24 @@
             };
         },
         methods: {
+            checkWeight(){
+                let total=0;
+                this.syllabusRuleForm.assessments.map(val=> total+=val.weight);
+                return total;
+            },
             validate() {
-                return new Promise((resolve) => {
-                    this.$refs.syllabusRuleForm.validate((valid) => {
-                        this.$emit('on-validate', valid, this.syllabusRuleForm)
-                        resolve(valid);
-                    });
-                })
+                if(this.checkWeight()!==100){
+                    this.$vs.notify({title:'Error',text:'Make sure weights add up to a hundred',color:'danger',position:'top-right'})
+                }
+                else {
+                    console.log("asd")
+                    return new Promise((resolve) => {
+                        this.$refs.syllabusRuleForm.validate((valid) => {
+                            this.$emit('on-validate', valid, this.syllabusRuleForm)
+                            resolve(valid);
+                        });
+                    })
+                }
 
             },
             removeAssessment(item) {

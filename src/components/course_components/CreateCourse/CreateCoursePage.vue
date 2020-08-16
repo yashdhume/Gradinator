@@ -10,7 +10,6 @@
                     subtitle=""
                     finish-button-text="Submit"
                     @on-complete="onComplete"
-                    validate-on-back
             >
                 <wizard-step
                         slot-scope="props"
