@@ -1,7 +1,7 @@
 <template>
     <vs-row vs-justify="center">
-        <vs-col type="flex" vs-align="center" vs-justify="center" vs-w="6">
-            <vs-card actionable class="cardx">
+        <vs-col type="flex" vs-align="center" vs-justify="center" vs-w="10">
+            <vs-card actionable>
                 <div slot="header">
                     <h5>Grade Summary</h5>
                 </div>
