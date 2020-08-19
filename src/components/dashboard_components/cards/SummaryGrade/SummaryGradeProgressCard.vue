@@ -1,7 +1,7 @@
 <template>
     <div>
         <DetailedCourse :name="index" :id="id" :course-code="courseCode" :room-number="roomNumber" :course-name="headerText" :professor="prof" :crn="crn"/>
-        <vs-card fixed-height actionable style="width: 500px">
+        <vs-card fixed-height actionable style="width: 25rem">
             <div slot="header" >
                 <vs-row vs-justify="space-around">
                     <h5 class="mb-1" @click="$modal.show(index)">{{headerText}}</h5>

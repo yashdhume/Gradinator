@@ -14,12 +14,10 @@
                                 label="Date"
                                 sortable
                                 column-key="date"
-                        >
-                        </el-table-column>
+                        />
                         <el-table-column
                                 prop="name"
-                                label="Name">
-                        </el-table-column>
+                                label="Name"/>
                         <el-table-column
                                 prop="course"
                                 label="Course"
