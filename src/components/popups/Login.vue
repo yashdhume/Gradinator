@@ -6,6 +6,8 @@
                 <vs-input icon="account_circle" style="padding-top: 20px; padding-bottom: 20px" placeholder="Username" v-model="username"/>
                 <vs-input @keyup.enter="sendLogin" icon="vpn_key" type="password" style="padding-bottom: 20px" placeholder="Password" v-model="password"/>
                 <vs-button type="line" style="outline: none; " @click="sendLogin">Login</vs-button>
+                <p style="padding-top: 1rem">Don't have an account?</p>
+                <p @click="$router.push({name: 'Registration'}); isActive=false" style="color:blue; cursor:pointer">Create an Account</p>
             </vs-col>
         </vs-popup>
     </div>
