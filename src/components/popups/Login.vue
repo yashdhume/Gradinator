@@ -36,9 +36,12 @@
                     else{
                         this.username= '';
                         this.password= '';
+                        console.log(this.$route.name)
                         this.$vs.notify({title:'Success',text:"Logged in",color:'success', position:'top-right'});
                         this.isActive = false;
-                        this.$router.push({name: 'Dashboard'})
+                        if(this.$route.name==='HomePage')
+                            this.$router.push({name: 'Dashboard'})
+                        else location.reload()
                     }
                 })
 
