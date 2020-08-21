@@ -11,11 +11,9 @@
             <div style="padding: 10px"/>
             <v-btn text color="primary" v-if="!this.$store.state.token.tokenId" @click.stop="openLogin">Login</v-btn>
             <vs-dropdown v-else style="outline: none; box-shadow: none;">
-                <span>w
                 <vs-avatar badge/>
-                </span>
                 <vs-dropdown-menu>
-                    <el-dropdown-item style="padding: 1rem" v-if="$route.name==='Dashboard'">
+                    <el-dropdown-item style="padding-right: 1rem" v-if="$route.name==='Dashboard'">
                         Progress Bar Design
                         <vs-switch v-model="progressBarChoice" >
                             <span slot="on">Dynamic</span>
