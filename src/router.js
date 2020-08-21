@@ -54,6 +54,11 @@ export default new Router({
             path: '/registration',
             name: 'Registration',
             component: ()=> import('./views/Registration')
-        }
+        },
+        {
+            path:'/logs',
+            name: 'Logs',
+            component: ()=> import('./views/Logs')
+        },
     ],
 })
