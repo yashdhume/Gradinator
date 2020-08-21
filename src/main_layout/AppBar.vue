@@ -13,7 +13,7 @@
             <vs-dropdown v-else style="outline: none; box-shadow: none;">
                 <vs-avatar badge/>
                 <vs-dropdown-menu>
-                    <el-dropdown-item style="padding-right: 1rem" v-if="$route.name==='Dashboard'">
+                    <el-dropdown-item style="padding: 1rem" v-if="$route.name==='Dashboard'">
                         Progress Bar Design
                         <vs-switch v-model="progressBarChoice" >
                             <span slot="on">Dynamic</span>
