@@ -6,7 +6,13 @@
     import HomePageComponents from "../main_layout/HomePageComponents";
     export default {
         name: "HomePage",
-        components: {HomePageComponents}
+        components: {HomePageComponents},
+        beforeCreate() {
+            if(this.$store.state.loginData.stayLoggedIn)
+                this.$store.dispatch('Login', this.$store.state.loginData).then(()=>{
+                    this.$router.push({name: 'Dashboard'})
+                })
+        }
     }
 </script>
 
