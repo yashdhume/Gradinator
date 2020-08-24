@@ -13,7 +13,7 @@ export const site = "https://gradinator.herokuapp.com/";
 export const store = new Vuex.Store({
     plugins: [
         createPersistedState({
-            paths: ['token', 'progressBarDynamicChoice'],
+            paths: ['token', 'progressBarDynamicChoice', 'loginData'],
             storage: {
                 getItem: key => ls.get(key),
                 setItem: (key, value) => ls.set(key, value),
