@@ -1,3 +1,4 @@
+import $ from "jquery"
 import axios from 'axios';
 const site = "https://gradinator.herokuapp.com";
 
@@ -19,7 +20,7 @@ export async function enrollCourse(courseId, token) {
 }
 
 export async function createCourse(courseData) {
-    return axios.post(site+ "/courses/createCourse?" + {...courseData}).then(r=>{return r.data});
+    return axios.post(site+ "/courses/createCourse?" + $.param(courseData)).then(r=>{return r.data});
 }
 
 //gradebook
@@ -35,7 +36,7 @@ export async function getGradebookCourseData(courseId, token){
 }
 export async function submitGradebook(assessmentId, changeData, token) {
     return axios
-        .post(site + "/gradebook/course/editGrade?assessmentId="+assessmentId+"&"+ {...changeData}, {},
+        .post(site + "/gradebook/course/editGrade?assessmentId="+assessmentId+"&"+ $.param(changeData), {},
             {headers: {...token}})
         .then(r => {return r.data});
 }
