@@ -55,6 +55,7 @@
             },
             logout(){
                 this.$store.commit('SET_TOKEN', {})
+                this.$store.commit('SET_LOGIN_DATA', {})
                 this.$vs.notify({title:'Success',text:"Logged Out",color:'success', position:'top-right'});
                 location.reload()
             },

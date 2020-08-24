@@ -34,8 +34,16 @@ new Vue({
     mounted(){
         axios.interceptors.response.use(
             async response=>{
-                if(this.$store.state.loginData.stayLoggedIn===true&&response.data.error==='The token has expired') {
-                    this.$store.dispatch('Login', this.$store.state.loginData).then(()=>{return response;})
+                if(this.$store.state.loginData.stayLoggedIn&&response.data.error==='The token has expired') {
+                    return this.$store.dispatch('Login', this.$store.state.loginData).then(()=>{
+                        response.config.headers= {...this.$store.state.token}
+                        return axios.request(response.config)
+                    });
+
+                }
+                else if(!this.$store.state.loginData.stayLoggedIn&&response.data.error==='The token has expired'){
+                    this.$store.commit('SET_TOKEN', {})
+                    this.$vs.notify({title:'Login Expired',text:"Please Login Again",color:'danger',position:'top-right'})
                 }
                 else return response;
             },
