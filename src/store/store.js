@@ -43,6 +43,7 @@ export const store = new Vuex.Store({
                     .post(site + `user/signIn?username=${value.username}&password=${value.password}`)
                     .then(r => {
                         commit('SET_TOKEN', r.data.token);
+                        if(value.stayLoggedIn) commit('SET_LOGIN_DATA', value);
                         resolve(r.data);
                     });
             });
@@ -74,6 +75,9 @@ export const store = new Vuex.Store({
         SET_ENROLLED_COURSES(state, value){
             state.enrolledCourses = value;
         },
+        SET_LOGIN_DATA(state, value){
+            state.loginData = value;
+        }
     },
     getters: {
         getToken(state) {

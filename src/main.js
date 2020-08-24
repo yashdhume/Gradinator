@@ -18,6 +18,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import VModal from 'vue-js-modal'
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
+import axios from 'axios';
 Vue.component('VueCtkDateTimePicker', VueCtkDateTimePicker);
 Vue.use(VModal)
 Vue.use(FormWizard)
@@ -30,5 +31,15 @@ new Vue({
     vuetify,
     vuesax,
     store,
+    mounted(){
+        axios.interceptors.response.use(
+            async response=>{
+                if(this.$store.state.loginData.stayLoggedIn===true&&response.data.error==='The token has expired') {
+                    this.$store.dispatch('Login', this.$store.state.loginData).then(()=>{return response;})
+                }
+                else return response;
+            },
+        )
+    },
     render: h => h(App)
 }).$mount('#app');
