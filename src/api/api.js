@@ -1,54 +1,51 @@
-import $ from "jquery"
+import axios from 'axios';
 const site = "https://gradinator.herokuapp.com";
 
 //documentation
 export async function getDocs(){
-    return (await fetch(site + "/docs")).json();
+    return axios.get(site + '/docs').then(r=>{return r.data});
 }
 
 //course
 export async function getCourses(){
-    return (await fetch(site + "/courses")).json();
+    return axios.get(site + '/courses').then(r=>{return r.data});
 }
 
 export async function enrollCourse(courseId, token) {
-    return (await fetch(site + "/gradebook/enroll?courseId="+courseId,{
-        headers: { ...token,},
-        method: "POST"
-    })).json();
+    return axios
+        .post(site + '/gradebook/enroll?' + "&courseId=" + courseId, {},
+            {headers: {...token}})
+        .then(r => {return r.data});
 }
 
 export async function createCourse(courseData) {
-    return(await fetch(site+ "/courses/createCourse?" + $.param(courseData),{
-        method: "POST"
-    })).json()
+    return axios.post(site+ "/courses/createCourse?" + $.param(courseData)).then(r=>{return r.data});
 }
 
 //gradebook
 export async function getGradebookCourses(token){
-    return (await fetch(site + "/gradebook", {
-       headers: { ...token },
-    })).json();
+    return axios
+        .get(site + '/gradebook', {headers: {...token}})
+        .then(r => {return r.data});
 }
 export async function getGradebookCourseData(courseId, token){
-    return (await fetch(site + "/gradebook/course?courseId="+courseId, {
-        headers: { ...token },
-    })).json();
+    return axios
+        .get(site + "/gradebook/course?courseId="+courseId, {headers: {...token}})
+        .then(r => {return r.data});
 }
 export async function submitGradebook(assessmentId, changeData, token) {
-    return (await fetch(site + "/gradebook/course/editGrade?assessmentId="+assessmentId+"&"+$.param(changeData), {
-        headers: { ...token },
-        method: "POST"
-    })).json();
-
+    return axios
+        .post(site + "/gradebook/course/editGrade?assessmentId="+assessmentId+"&"+ {...changeData}, {},
+            {headers: {...token}})
+        .then(r => {return r.data});
 }
 
 //majors
 export async function getMajors(){
-    return (await fetch(site + "/majors")).json();
+    return axios.get(site + '/majors').then(r=>{return r.data});
 }
 
 //universities
 export async function getUniversities(){
-    return (await fetch(site + "/universities")).json();
+    return axios.get(site + "/universities").then(r=>{return r.data});
 }
