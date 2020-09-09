@@ -35,6 +35,12 @@ new Vue({
         axios.interceptors.response.use(
             async response=>{
                 if(this.$store.state.loginData.stayLoggedIn&&response.data.error==='The token has expired') {
+                    this.$vs.notify({
+                        title: 'Please wait',
+                        text: "Login in progress",
+                        color: 'warning',
+                        position: 'top-right'
+                    });
                     return this.$store.dispatch('Login', this.$store.state.loginData).then(()=>{
                         response.config.headers= {...this.$store.state.token}
                         return axios.request(response.config)
