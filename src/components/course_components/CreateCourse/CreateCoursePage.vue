@@ -55,6 +55,7 @@
     import Campus from "../../../assets/animations/CampusAnimation";
     import SendAnimation from "../../../assets/animations/SendAnimation";
     import CreateCourseSyllabus from "./CreateCourseSyllabus";
+    import {createCourse} from "../../../api/api";
     export default {
         name: "CreateCoursePage",
         components: {
@@ -76,7 +77,24 @@
                 return this.$refs[ref].validate();
             },
             onComplete(){
-                console.log(this.finalModel)
+                let tempJson=[];
+                for(let i =0; i<this.finalModel['selectedDays'].length; i++)
+                    tempJson.push({"day": this.finalModel['selectedDays'][i], "startTime": this.finalModel['startTimes'][i], "endTime": this.finalModel['endTimes'][i]})
+                delete this.finalModel['selectedDays'];
+                delete this.finalModel['startTimes'];
+                delete this.finalModel['endTimes']
+                this.finalModel.times=JSON.stringify(tempJson)
+                this.finalModel['assessments']=JSON.stringify(this.finalModel['assessments'])
+                console.log(this.finalModel);
+                createCourse(this.finalModel).then(r=>{
+                    if(r.error){
+                        this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
+                    }
+                    else{
+                        this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
+                        return true;
+                    }
+                })
             },
             onStepValidate(validated, model) {
                 if (validated) {

@@ -17,7 +17,7 @@
                                 label="Weight"
                                 style="padding-left: 1rem"
                         >
-                            <el-input-number v-model="i.weight" controls-position="right" :min="1" :max="100"/>
+                            <el-input-number v-model="i.weight" controls-position="right" :min="1" :max="100" :step="5"/>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -48,11 +48,9 @@
                 <el-row>
                     <el-col :span="9">
                         <el-form-item
-                                :label="i.frequency !== 'Once' ? 'Due Date' : 'Start Date'"
+                                :label="i.frequency === 'Once'|| i.frequency === ''? 'Due Date' : 'Start Date'"
                         >
-                            <el-date-picker type="date" placeholder="Pick a date" v-model="i.date"
-                                    tyle="width: 100%;"
-                            />
+                            <el-date-picker type="date" placeholder="Pick a date" v-model="i.date" value-format="timestamp"/>
                         </el-form-item>
                     </el-col>
                 </el-row>

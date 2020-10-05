@@ -20,6 +20,7 @@ export async function enrollCourse(courseId, token) {
 }
 
 export async function createCourse(courseData) {
+    console.log(courseData)
     return axios.post(site+ "/courses/createCourse?" + $.param(courseData)).then(r=>{return r.data});
 }
 
