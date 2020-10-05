@@ -41,6 +41,11 @@ export async function submitGradebook(assessmentId, changeData, token) {
             {headers: {...token}})
         .then(r => {return r.data});
 }
+export async function getTodo(token){
+    return axios
+        .get(site + '/gradebook/todo', {headers: {...token}})
+        .then(r => {return r.data});
+}
 
 //majors
 export async function getMajors(){

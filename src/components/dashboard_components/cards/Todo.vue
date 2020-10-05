@@ -6,17 +6,22 @@
                     <h5>Todo</h5>
                 </div>
                 <div>
+
                     <el-table
                             :data="tableData"
                     >
                         <el-table-column
-                                prop="date"
+                                prop="assessment.dueDate"
                                 label="Date"
                                 sortable
                                 column-key="date"
-                        />
+                        >
+                            <template slot-scope="scope">
+                                <p>{{formatDate(scope.row.assessment.dueDate/1000)}}</p>
+                            </template>
+                        </el-table-column>
                         <el-table-column
-                                prop="name"
+                                prop="assessment.name"
                                 label="Name"/>
                         <el-table-column
                                 prop="course"
@@ -26,7 +31,7 @@
                                 filter-placement="bottom-end">
                             <template slot-scope="scope">
                                 <el-tag
-                                        disable-transitions>{{scope.row.course}}
+                                        disable-transitions>{{scope.row.assessment.name}}
                                 </el-tag>
                             </template>
                         </el-table-column>
@@ -37,8 +42,7 @@
                                 :filter-method="filterCompleted"
                         >
                             <template slot-scope="scope" style="align-items: center">
-                                <vs-checkbox @click.native="!scope.row.complete" color="success"
-                                             v-model="scope.row.complete"/>
+                                <vs-checkbox @click.native="submitCompletion(!scope.row.isCompleted, scope.row.assessment.id)" color="success" v-model="scope.row.isCompleted"/>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -49,43 +53,62 @@
 </template>
 
 <script>
+    import {mapState} from "vuex";
+    import {getTodo, submitGradebook} from "../../../api/api";
+
     export default {
         name: "Todo",
-        data: () => {
-            return {
-                tableData: [{
-                    date: '2020-11-06',
-                    name: 'Lab2',
-                    course: 'Computer Architecture',
-                    complete: false,
-                }, {
-                    date: '2020-11-09',
-                    name: 'Assignment',
-                    course: 'Quantum',
-                    complete: false,
-                }, {
-                    date: '2020-09-04',
-                    name: 'Midterm',
-                    course: 'Computer Vision',
-                    complete: false,
-                }, {
-                    date: '2020-10-01',
-                    name: 'Lab1',
-                    course: 'Computer Architecture',
-                    complete: false,
-                }]
-            }
+        computed: mapState([
+            'token'
+        ]),
+        mounted() {
+            this.reload();
         },
+        data: () => ({
+            tableData: []
+        }),
         methods: {
+            submitCompletion: function (isComplete, assessmentId) {
+                submitGradebook(assessmentId,{"isCompleted": isComplete}, this.token).then(r=>{
+                    if(r.error){
+                        this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
+                    }
+                    else{
+                        this.$vs.notify({title:'Success',text:"Is Completed Sent Successfully",color:'success',position:'top-right'})
+                        return true;
+                    }
+                });
+            },
+            formatDate(val) {
+                var monthNames = [
+                    "January", "February", "March",
+                    "April", "May", "June", "July",
+                    "August", "September", "October",
+                    "November", "December"
+                ];
+                let date = new Date(val);
+                let hours = date.getHours();
+                let minutes = date.getMinutes();
+                const ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+                minutes = minutes < 10 ? '0'+minutes : minutes;
+                return `${monthNames[date.getMonth()]} ${date.getDay()} ${date.getFullYear()} ${hours}:${minutes}${ampm}`;
+            },
             filterCourse(value, row) {
-                return row.course === value;
+                return row.assessment.name === value;
             },
             filterCompleted(value, row) {
-                return row.complete === value;
+                return row.isCompleted === value;
             },
             getCourses() {
-                return [...new Set(this.tableData.map(i=>i.course))].map(i=>({"text":i, "value": i}))
+                return [...new Set(this.tableData.map(i => i.assessment.name))].map(i => ({"text": i, "value": i}))
             },
+            reload: function () {
+                getTodo(this.token).then(r => this.tableData = r.assessments);
+                console.log("RELOAD")
+                console.log(this.tableData);
+            }
         }
     }
 </script>
