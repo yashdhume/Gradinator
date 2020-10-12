@@ -21,7 +21,7 @@ export async function enrollCourse(courseId, token) {
 
 export async function createCourse(courseData) {
     console.log(courseData)
-    return axios.post(site+ "/courses/createCourse?" + $.param(courseData)).then(r=>{return r.data});
+    return axios.post(site+ "/courses/createCourse?data=" +courseData).then(r=>{return r.data});
 }
 
 //gradebook

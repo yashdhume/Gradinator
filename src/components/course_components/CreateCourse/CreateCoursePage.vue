@@ -83,15 +83,15 @@
                 delete this.finalModel['selectedDays'];
                 delete this.finalModel['startTimes'];
                 delete this.finalModel['endTimes']
-                this.finalModel.times=JSON.stringify(tempJson)
-                this.finalModel['assessments']=JSON.stringify(this.finalModel['assessments'])
-                console.log(this.finalModel);
-                createCourse(this.finalModel).then(r=>{
+                this.finalModel.times=tempJson
+                console.log(JSON.stringify(this.finalModel));
+                createCourse(JSON.stringify(this.finalModel)).then(r=>{
                     if(r.error){
                         this.$vs.notify({title:'Error',text:r.error,color:'danger',position:'top-right'})
                     }
                     else{
                         this.$vs.notify({title:'Success',text:"Course Created Successfully",color:'success',position:'top-right'})
+                        this.$router.push('/courses')
                         return true;
                     }
                 })

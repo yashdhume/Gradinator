@@ -7,10 +7,10 @@
             <el-col :span="12">
                 <el-form-item label="Semester" prop="semester">
                     <el-select v-model="ruleForm.semester" placeholder="Fall">
-                        <el-option label="Fall" value="fall"/>
-                        <el-option label="Winter" value="winter"/>
-                        <el-option label="Spring" value="spring"/>
-                        <el-option label="Summer" value="summer"/>
+                        <el-option label="Fall" value="FALL"/>
+                        <el-option label="Winter" value="WINTER"/>
+                        <el-option label="Spring" value="SPRING"/>
+                        <el-option label="Summer" value="SUMMER"/>
                     </el-select>
                 </el-form-item>
             </el-col>
