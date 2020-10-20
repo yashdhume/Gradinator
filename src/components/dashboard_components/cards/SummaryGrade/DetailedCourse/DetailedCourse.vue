@@ -1,5 +1,5 @@
 <template>
-    <modal adaptive :name="name" height="auto" :scrollable="true" @before-open="reload" @before-close="update">
+    <modal :adaptive="true" :name="name" height="auto" :scrollable="true" @before-open="reload" @before-close="update">
         <v-card style="padding: 1rem">
             <h2>{{courseName}}</h2>
             <v-divider/>
@@ -29,7 +29,7 @@
                     :label-size="7"
             ></v-sparkline>
             <v-divider/>
-            <CourseBreakDownTable :assessments="assessmentGrades.gradedAssessments" :grades="this.grades"/>
+            <div><CourseBreakDownTable :assessments="assessmentGrades.gradedAssessments" :grades="this.grades"/></div>
         </v-card>
     </modal>
 </template>

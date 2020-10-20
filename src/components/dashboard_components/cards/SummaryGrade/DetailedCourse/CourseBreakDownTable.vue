@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vs-table stripe :data="assessments">
+        <vs-table stripe :data="assessments" maxHeight="250px">
             <template slot="header">
                 <h3>
                     Assessments
